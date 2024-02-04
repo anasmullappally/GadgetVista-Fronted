@@ -6,8 +6,12 @@ function App() {
   return (
     <>
       {/* <Login />; */}
-      <Header />
-      <HomePage />
+      <header>
+        <Header />
+      </header>
+      <main>
+        <HomePage />
+      </main>
     </>
   );
 }

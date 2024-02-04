@@ -36,8 +36,8 @@ function Header() {
   return (
     <>
       <nav
-        className={`relative z-20 bg-white w-full md:static md:text-sm md:border-none ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""
-          }`}
+        style={{ overflow: "hidden" }}
+        className={` fixed top-0 z-20 bg-white w-full  md:text-sm md:border-none ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""}`}
       >
         <div className="items-center gap-x-14 px-4 max-w-screen-xl mx-auto md:flex md:px-8">
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -237,7 +237,7 @@ function Header() {
       </nav>
       {state ? (
         <div
-          className="z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden"
+          className="backdrop z-10 fixed top-0 w-screen h-screen bg-black/20 backdrop-blur-sm md:hidden"
           onClick={() => setState(false)}
         ></div>
       ) : (

@@ -1,5 +1,49 @@
 * {
-    padding: 0;
-    margin: 0;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  --sb-track-color: #232e33;
+  --sb-thumb-color: #7f74d4;
+  --sb-size: 11px;
+  overflow: hidden; /* Add this line to hide the scrollbar for the body */
+  background: rgba(173, 173, 173, 0.548);
+}
+
+main::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+main::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 6px;
+}
+
+main::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 6px;
+  border: 3px solid #232e33;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
   }
-  
+}
+
+header {
+  overflow: hidden;
+  height: 7rem;
+}
+
+main {
+  height: calc(100vh - 7rem);
+  overflow: auto;
+}
+.header-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
