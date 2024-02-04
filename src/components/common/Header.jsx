@@ -9,7 +9,7 @@ function Header() {
     isActive: false,
     index: null,
   });
-  const isLoggedIn = false
+  const isLoggedIn = false;
 
   const navigation = [
     { title: "Home", path: "#", isDropdown: false },
@@ -36,8 +36,8 @@ function Header() {
   return (
     <>
       <nav
-        style={{ overflow: "hidden" }}
-        className={` fixed top-0 z-20 bg-white w-full  md:text-sm md:border-none ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""}`}
+        style={{ overflow: "hidden", backgroundColor: '#1F2544' }}
+        className={`fixed top-0 z-20 bg-#1F2544 w-full md:text-sm md:border-none ${state ? "shadow-lg rounded-b-xl md:shadow-none" : ""}`}
       >
         <div className="items-center gap-x-14 px-4 max-w-screen-xl mx-auto md:flex md:px-8">
           <div className="flex items-center justify-between py-3 md:py-5 md:block">
@@ -46,7 +46,7 @@ function Header() {
             </a>
             <div className="md:hidden">
               <button
-                className="text-gray-500 hover:text-gray-800"
+                className="text-white hover:text-gray-800"
                 onClick={() => setState(!state)}
               >
                 {state ? (
@@ -88,7 +88,7 @@ function Header() {
                 <li key={index}>
                   {item.isDropdown ? (
                     <button
-                      className="w-full flex items-center justify-between gap-1 text-gray-700 hover:text-indigo-600"
+                      className="w-full flex items-center justify-between gap-1 text-white hover:text-indigo-600"
                       onClick={() =>
                         setDropdownState({
                           index,
@@ -129,7 +129,7 @@ function Header() {
                   ) : (
                     <a
                       href={item.path}
-                      className="block text-gray-700 hover:text-indigo-600"
+                      className="block text-white hover:text-indigo-600"
                     >
                       {item.title}
                     </a>
@@ -155,10 +155,10 @@ function Header() {
                                       {navItem.icon}
                                     </div>
                                     <div>
-                                      <span className="text-gray-800 duration-200 group-hover:text-indigo-600 text-sm font-medium md:text-base">
+                                      <span className="text-white duration-200 group-hover:text-indigo-600 text-sm font-medium md:text-base">
                                         {navItem.title}
                                       </span>
-                                      <p className="text-sm text-gray-600 group-hover:text-gray-800 mt-1">
+                                      <p className="text-sm text-white group-hover:text-gray-800 mt-1">
                                         {navItem.desc}
                                       </p>
                                     </div>
@@ -179,7 +179,7 @@ function Header() {
                 <form className="flex items-center space-x-2 border rounded-md p-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-5 w-5 flex-none text-gray-300"
+                    className="h-5 w-5 flex-none text-white"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -192,31 +192,20 @@ function Header() {
                     />
                   </svg>
                   <input
-                    className="w-full outline-none appearance-none placeholder-gray-500 text-gray-500 sm:w-auto"
+                    className="w-full outline-none appearance-none placeholder-#1F2544-500 text-white sm:w-auto"
                     type="text"
                     placeholder="Search"
+                    style={{ backgroundColor: '#1F2544' }}
                   />
                 </form>
+
                 <li>
                   {count > 0 && (
                     <span className="top-0 right-0 bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
                       {count}
                     </span>
                   )}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="w-6 h-6 cursor-pointer"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-                    />
-                  </svg>
+                  <svg className="h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="9" cy="21" r="1" />  <circle cx="20" cy="21" r="1" />  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg>
                 </li>
                 {isLoggedIn ? (
                   <ProfileAvatar />
