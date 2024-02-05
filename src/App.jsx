@@ -1,7 +1,8 @@
 import "./App.css";
 import Header from "./components/common/Header";
+import SingleProduct from "./pages/SingleProduct";
 // import HomePage from "./pages/HomePage";
-import ProductsPage from "./pages/ProductsPage";
+// import ProductsPage from "./pages/ProductsPage";
 // import Login from "./components/auth/login";
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       </header>
       <main>
         {/* <HomePage /> */}
-        <ProductsPage />
+        {/* <ProductsPage /> */}
+        <SingleProduct />
       </main>
     </>
   );
