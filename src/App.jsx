@@ -1,6 +1,7 @@
 import "./App.css";
 import Header from "./components/common/Header";
-import HomePage from "./pages/HomePage";
+// import HomePage from "./pages/HomePage";
+import ProductsPage from "./pages/ProductsPage";
 // import Login from "./components/auth/login";
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
         <Header />
       </header>
       <main>
-        <HomePage />
+        {/* <HomePage /> */}
+        <ProductsPage />
       </main>
     </>
   );

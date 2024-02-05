@@ -1,5 +1,4 @@
-/* Move the @import statement to the top */
-@import "./styles//home/home.scss";
+@import "styles/global.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -15,7 +14,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Rest of the CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
