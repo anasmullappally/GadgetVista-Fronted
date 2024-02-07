@@ -1,0 +1,190 @@
+.checkout-wrapper {
+  color: white;
+  height: calc(100% - 0.5rem);
+  margin-top: 0.5rem;
+  cursor: default;
+  .paths {
+    margin-left: 2rem;
+    .home {
+      margin-right: 0.5rem;
+    }
+  }
+  .checkout-container {
+    height: calc(100% - 1.5rem);
+    display: flex;
+    flex-wrap: wrap;
+    .addresses {
+      height: 100%;
+      width: 70%;
+      padding-left: 3rem;
+      padding-top: 1rem;
+      .select-address {
+        width: calc(100% - 3rem);
+        padding: 1rem;
+        border: 1px solid #ffd0ec;
+      }
+      .address-container {
+        margin-top: 1rem;
+        width: calc(100% - 3rem);
+        .single-address {
+          display: flex;
+          gap: 1.5rem;
+          font-size: 0.9rem;
+          align-items: flex-start;
+          border-bottom: 1px solid gray;
+          margin-bottom: 0.8rem;
+          .detailed-address {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+            .name-number-edit {
+              display: flex;
+              justify-content: space-between;
+              .name-number {
+                .address-name {
+                  margin-right: 1rem;
+                }
+                .address-type {
+                  padding: 0.4rem;
+                  font-weight: bold;
+                  margin-right: 1rem;
+                  color: gray;
+                }
+              }
+              .edit {
+                color: #ffd0ec;
+              }
+            }
+            .remaining-address {
+              width: 100%;
+              padding-bottom: 1rem;
+            }
+          }
+          .checkbox {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #81689d;
+            border-radius: 5px;
+            background-color: transparent;
+            display: inline-block;
+            position: relative;
+            margin-right: 10px;
+            cursor: pointer;
+          }
+
+          .checkbox:before {
+            content: "";
+            background-color: #81689d;
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            width: 10px;
+            height: 10px;
+            border-radius: 3px;
+            transition: all 0.3s ease-in-out;
+          }
+
+          .checkbox:checked:before {
+            transform: translate(-50%, -50%) scale(1);
+          }
+
+          .checkbox-label {
+            font-size: 0.8rem;
+            color: #fff;
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            // margin-bottom: 0.4rem;
+          }
+        }
+        .single-address:last-child {
+          border-bottom: none;
+        }
+      }
+      .new-address {
+        width: 100%;
+        padding-left: 3rem;
+        margin-top: 1rem;
+        .part {
+          display: flex;
+          flex-direction: row;
+          gap: 3rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .input {
+          position: relative;
+          max-width: 20rem;
+          border: none;
+          box-shadow: 0px 1.5px 0px 0px #858585;
+          padding: 0.5rem;
+          transition: all 200ms ease-in-out;
+          opacity: 0.8;
+          color: black;
+        }
+
+        .input-box {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .input-label {
+          font-size: 0.625rem;
+          font-weight: bold;
+          color: #858585;
+          margin-bottom: 4px;
+          margin-left: 1px;
+        }
+
+        .input-helper {
+          color: #858585;
+          font-size: 0.5rem;
+          margin-top: 6px;
+          margin-left: 1px;
+          visibility: hidden;
+          transform: translateY(-0.5rem);
+          transition: all 100ms linear;
+          z-index: -1;
+        }
+
+        .input::placeholder {
+          color: rgb(145, 145, 145);
+          font-size: 0.75rem;
+        }
+
+        .input::after {
+          content: attr(placeholder);
+          position: absolute;
+          color: #161616;
+          top: 0;
+          left: 0;
+        }
+
+        .input:focus {
+          border: none;
+          box-shadow: 0px 1.5px 0px 0px #72e985;
+          outline: none;
+        }
+
+        .input:focus + .input-helper {
+          visibility: visible;
+          transform: translateY(0rem);
+        }
+
+        .input:focus::placeholder {
+          visibility: hidden;
+        }
+      }
+    }
+    .price-details {
+      height: 100%;
+      width: 30%;
+      background-color: blueviolet;
+    }
+  }
+}

@@ -4,6 +4,7 @@ import Header from "./components/common/Header";
 import SingleProduct from "./pages/SingleProduct";
 import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
+import CheckoutPage from "./pages/CheckoutPage";
 // import Login from "./components/auth/login";
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/shop" element={<ProductsPage />} />
             <Route path="/shop/:id" element={<SingleProduct />} />
+            <Route path="/contact" element={<CheckoutPage />} />
           </Routes>
         </Router>
       </main>
