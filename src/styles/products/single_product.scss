@@ -30,10 +30,18 @@
 
       .buy {
         background-color: #81689d;
+        transition: background-color 0.3s ease;
+      }
+      .buy:hover {
+        background-color: rgb(129, 104, 157, 0.5);
       }
 
       .cart {
         background-color: #474f7a;
+        transition: background-color 0.3s ease;
+      }
+      .cart:hover {
+        background-color: rgb(71, 79, 122, 0.5);
       }
     }
   }
@@ -182,11 +190,14 @@
         gap: 0.5rem;
 
         .name-ratings {
-          span {
-            margin-right: 1rem;
+          .seller-rating-count {
+            margin-right: 0.5;
           }
 
-          .ratings {
+          .seller-ratings {
+            width: fit-content;
+            display: flex;
+            align-items: center;
             padding: 0.3rem;
             background-color: gray;
             border-radius: 10px;
