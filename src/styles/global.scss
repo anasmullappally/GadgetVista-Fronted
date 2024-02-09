@@ -1,6 +1,10 @@
 .pointer {
   cursor: pointer;
 }
+.line-through {
+  text-decoration: line-through;
+  color: gray;
+}
 @import "home/home.scss";
 @import "products/products.scss";
 @import "products/single_product.scss";
