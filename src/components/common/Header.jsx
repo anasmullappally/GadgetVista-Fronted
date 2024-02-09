@@ -12,10 +12,10 @@ function Header() {
   const isLoggedIn = false;
 
   const navigation = [
-    { title: "Home", path: "#", isDropdown: false },
-    { title: "Phones", path: "#", isDropdown: false },
-    { title: "About", path: "#", isDropdown: false },
-    { title: "Contact Us", path: "#", isDropdown: false },
+    { title: "Home", path: "/", isDropdown: false },
+    { title: "Shop", path: "/shop", isDropdown: false },
+    { title: "About", path: "/about", isDropdown: false },
+    { title: "Contact Us", path: "/contact", isDropdown: false },
   ];
 
   useEffect(() => {
