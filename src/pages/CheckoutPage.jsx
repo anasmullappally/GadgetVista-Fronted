@@ -69,7 +69,7 @@ function Checkout() {
                         <div className="main-address part">
                             <div className="input-box">
                                 <label className="input-label">Address</label>
-                                <textarea cols={5} rows={6} placeholder="Address" className="input" name="text" type="text" />
+                                <textarea placeholder="Address" className="input textarea" name="text" type="text" />
                                 <span className="input-helper">enter a Address</span>
                             </div>
                         </div>
@@ -121,7 +121,7 @@ function Checkout() {
 
                                     </div>
                                     <div className="remove">
-                                        <button>Remove</button>
+                                        <button className="button">Remove</button>
                                     </div>
                                 </div>
                             </div>
@@ -132,12 +132,16 @@ function Checkout() {
                 <div className="price-details">
                     <div className="apply-offer">
                         <div className="heading">Apply Coupon</div>
-                        <form className="offer-apply" action="javascript:void(0)">
+                        <form className="offer-apply" action="null">
                             <div className="input-box">
                                 <input placeholder="Coupon code" className="input" name="text" type="text" />
                                 <span className="input-helper">enter a valid coupon</span>
                             </div>
-                            <div type="submit" className="apply pointer"> Apply </div>
+                            <div type="submit" className="apply pointer">
+                                <button className="button">
+                                    Apply
+                                </button>
+                            </div>
                         </form>
                     </div>
                     <div className="checkout-details">
@@ -163,6 +167,11 @@ function Checkout() {
                             <div className="total-heading">Total</div>
                             <div className="total-price">15100</div>
                         </div>
+                    </div>
+                    <div className="checkout-button">
+                        <button className="button">
+                            Place Order
+                        </button>
                     </div>
                 </div>
             </div>
