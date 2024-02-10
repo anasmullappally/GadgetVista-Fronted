@@ -54,8 +54,15 @@
     gap: 1rem;
     width: calc(60% - 2rem);
 
-    .brand-name {
+    .brand-name-and-wishlist {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
       font-weight: bold;
+      .wishlist {
+        font-weight: normal;
+        margin-right: 1rem;
+      }
     }
 
     .special-price {
