@@ -1,7 +1,7 @@
 import { useState } from "react"
 
 function Checkout() {
-    const arr = [1, 2, 3, 4, 5, 6, 7]
+    const arr = [1, 2, 3, 4]
     const [newAddress, setNewAddress] = useState(false);
     return (
         <div className="checkout-wrapper">
