@@ -3,6 +3,10 @@ import Footer from "../components/common/Footer";
 export default function AboutPage() {
     return (
         <div className="about">
+            <div className="paths pl-5 ">
+                <span className="mr-3 cursor-pointer" >{"Home >"}</span>
+                <span>Contact</span>
+            </div>
             <div className="about-main">
                 <div className="why-us">
                     <div className="description">
