@@ -9,7 +9,7 @@ function CartPage() {
                 <span>Cart</span>
             </div>
             <div className="cart-container">
-                <div className="checkout-product-wrapper">
+                <div className="checkout-product-wrapper p-3">
                     {arr.map((item) => (
                         <div className="single-product" key={item}>
                             <div className="image-and-count">

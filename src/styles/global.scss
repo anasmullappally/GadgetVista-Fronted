@@ -105,6 +105,7 @@
     border-bottom: none;
   }
 }
+
 @import "home/home.scss";
 @import "products/products.scss";
 @import "products/single_product.scss";
@@ -112,3 +113,5 @@
 @import "./about/about.scss";
 @import "./contact/contact.scss";
 @import "./cart/cart.scss";
+@import "./wishlist/wishlist.scss";
+@import "./profile/profile.scss";

@@ -1,0 +1,95 @@
+.profile-wrapper {
+  height: calc(100% - 1rem);
+  width: 100%;
+  margin-top: 0.5rem;
+  color: white;
+  display: flex;
+  gap: 1rem;
+
+  .lists {
+    width: 25%;
+    height: 100%;
+    margin-left: 1rem;
+    cursor: default;
+    // background-color: #bbb;
+
+    .profile-main {
+      display: flex;
+      gap: 1rem;
+      border: 1px solid rgb(255, 208, 236, 0.3);
+      padding: 0.5rem;
+      .image {
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+      }
+      .profile-details {
+        span {
+          display: block;
+        }
+      }
+    }
+
+    .main-sections {
+      margin-top: 1rem;
+      border: 1px solid rgb(255, 208, 236, 0.3);
+      padding-top: 1rem;
+      padding-left: 1rem;
+
+      .sections {
+        width: 100%;
+        margin-bottom: 1rem;
+        .main-heading {
+          display: flex;
+          align-items: center;
+          height: 2rem;
+          margin-bottom: 0.5rem;
+          cursor: pointer;
+
+          .icon {
+            width: 3rem;
+          }
+          .heading {
+            font-weight: 500;
+          }
+        }
+        .sections-list {
+          .list {
+            padding-left: 3rem;
+            padding: 0.5rem 0;
+            margin-bottom: 0.3rem;
+            cursor: pointer;
+            transition:
+              background-color 0.3s ease-in-out,
+              transform 0.3s ease-in-out;
+
+            &:hover {
+              background-color: rgba(255, 208, 236, 0.2);
+              transform: scale(1.05);
+              width: calc(100% - 1rem);
+            }
+          }
+        }
+      }
+      .logout {
+        display: flex;
+        margin-bottom: 2rem;
+        border-top: 1px solid rgb(255, 208, 236, 0.3);
+        padding-top: 1rem;
+
+        .icon {
+          width: 3rem;
+        }
+      }
+    }
+  }
+  .details-container {
+    width: calc(70% - 1rem);
+    height: fit-content;
+    // background-color: red;
+    box-shadow:
+      rgba(0, 0, 0, 0.3) 0px 19px 38px,
+      rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    margin-bottom: 3rem;
+  }
+}
