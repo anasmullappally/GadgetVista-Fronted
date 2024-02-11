@@ -1,10 +1,12 @@
 .contact-page {
-  color: white;
+  color: black;
   height: calc(100% - 0.5rem);
   width: 100%;
   margin-top: 0.5rem;
   cursor: default;
-
+  .paths {
+    color: white;
+  }
   .contact {
     display: flex;
     justify-content: center;
@@ -12,18 +14,46 @@
     margin: auto;
     width: 100%;
     margin-bottom: 2rem;
-
+    .contact-info {
+      height: 25rem;
+      width: 25rem;
+      padding: 3rem;
+      margin-right: 2rem;
+      border-top-right-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+      // border: 1px solid rgb(255, 208, 236, 0.3);
+      box-shadow:
+        rgba(0, 0, 0, 0.3) 0px 19px 38px,
+        rgba(0, 0, 0, 0.22) 0px 15px 12px;
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
+      justify-content: center;
+      .info {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        .head {
+          font-weight: bold;
+          font-size: 1rem;
+          display: block;
+        }
+        .desc {
+          font-size: 0.8rem;
+          color: rgb(0, 0, 0, 0.5);
+        }
+      }
+    }
     .card {
       width: 25rem;
       height: 25rem;
-      background: lightgrey;
-      background-color: #4158d0;
-      background-image: linear-gradient(
-        43deg,
-        #1f2544 0%,
-        #474f7a 46%,
-        #81689d 100%
-      );
+      // background-color: #1f2544;
+      // background-image: linear-gradient(
+      //   43deg,
+      //   #1f2544 0%,
+      //   #474f7a 46%,
+      //   #81689d 100%
+      // );
       border-top-left-radius: 2rem;
       border-bottom-right-radius: 2rem;
       padding: 1rem;
