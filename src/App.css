@@ -9,7 +9,7 @@ body {
   --sb-thumb-color: #7f74d4;
   --sb-size: 11px;
   overflow: hidden; /* Add this line to hide the scrollbar for the body */
-  background-color: #1F2544;
+  background-color: #1f2544;
 }
 
 *::-webkit-scrollbar {
@@ -33,13 +33,13 @@ body {
   }
 }
 
-header {
+.user-header {
   overflow: hidden;
   height: 7rem;
 }
 
 main {
-  height: calc(100vh - 7rem);
+  height: calc(100vh - 4rem);
   overflow: auto;
 }
 .header-sticky {

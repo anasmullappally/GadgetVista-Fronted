@@ -4,7 +4,7 @@ import Footer from "../components/common/Footer";
 
 function HomePage() {
   return (
-    <div className="home-wrapper">
+    <div className="home-wrapper flex-col ">
       <Slideshow />
       <TopProducts />
       <Footer />

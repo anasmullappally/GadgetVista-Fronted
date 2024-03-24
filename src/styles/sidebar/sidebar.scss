@@ -1,0 +1,27 @@
+.sidebar {
+  width: 15vw;
+  // max-width: fit-content;
+  background-color: #474f7a;
+  transition: all 300ms ease-in; /* Added transition property */
+}
+
+.section {
+  transition: 0.3s;
+}
+
+.section:hover {
+  background: hsl(323, 100%, 91%, 0.14);
+}
+
+.sidebar-responsive {
+  display: block !important;
+  z-index: 12 !important;
+}
+
+@media (max-width: 992px) {
+  .sidebar {
+    transition: all 300ms ease-out; /* Added transition property */
+    display: none;
+    width: 35vw;
+  }
+}

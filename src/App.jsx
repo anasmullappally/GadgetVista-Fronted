@@ -10,15 +10,23 @@ import ContactPage from "./pages/ContactPage";
 import CartPage from "./pages/CartPage";
 import WishListPage from "./pages/WishListPage";
 import UserProfilePage from "./pages/UserProfilePage";
+import AdminHomePage from "./pages/AdminHomePage";
+import SideBar from "./components/common/SideBar";
+import AdminHeader from "./components/common/AdminHeader";
+import { useState } from "react";
 // import Login from "./components/auth/login";
+
 function App() {
+  const user = false
+  const [openSideBar, setOpenSideBar] = useState(false)
   return (
     <>
       {/* <Login />; */}
-      <header>
-        <Header />
+      <header className={`${user ? 'user-header' : 'admin-header'}`}>
+        {user ? < Header /> : <AdminHeader setOpenSideBar={setOpenSideBar} />}
       </header>
-      <main>
+      <main className="mt-3 flex">
+        {!user && <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />}
         <Router>
           <Routes>
             <Route path="/" element={<HomePage />} />
@@ -29,8 +37,8 @@ function App() {
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/wishlist" element={<WishListPage />} />
-            <Route path="/wishlist" element={<WishListPage />} />
             <Route path="/profile" element={<UserProfilePage />} />
+            <Route path="/admin" element={<AdminHomePage />} />
           </Routes>
         </Router>
       </main>
