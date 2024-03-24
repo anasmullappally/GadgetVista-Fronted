@@ -14,15 +14,16 @@ import AdminHomePage from "./pages/AdminHomePage";
 import SideBar from "./components/common/SideBar";
 import AdminHeader from "./components/common/AdminHeader";
 import { useState } from "react";
+import AdminProductsPage from "./pages/AdminProductsPage";
 // import Login from "./components/auth/login";
 
 function App() {
-  const user = false
+  const user = true
   const [openSideBar, setOpenSideBar] = useState(false)
   return (
     <>
       {/* <Login />; */}
-      <header className={`${user ? 'user-header' : 'admin-header'}`}>
+      <header className={`${user ? 'user-header' : 'admin-header mt-2'}`}>
         {user ? < Header /> : <AdminHeader setOpenSideBar={setOpenSideBar} />}
       </header>
       <main className="mt-3 flex">
@@ -38,7 +39,8 @@ function App() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/wishlist" element={<WishListPage />} />
             <Route path="/profile" element={<UserProfilePage />} />
-            <Route path="/admin" element={<AdminHomePage />} />
+            <Route path="/admin/dashboard" element={<AdminHomePage />} />
+            <Route path="/admin/products" element={<AdminProductsPage />} />
           </Routes>
         </Router>
       </main>
