@@ -15,10 +15,11 @@ import SideBar from "./components/common/SideBar";
 import AdminHeader from "./components/common/AdminHeader";
 import { useState } from "react";
 import AdminProductsPage from "./pages/AdminProductsPage";
+import AddProduct from "./pages/AddProduct";
 // import Login from "./components/auth/login";
 
 function App() {
-  const user = true
+  const user = false
   const [openSideBar, setOpenSideBar] = useState(false)
   return (
     <>
@@ -41,6 +42,7 @@ function App() {
             <Route path="/profile" element={<UserProfilePage />} />
             <Route path="/admin/dashboard" element={<AdminHomePage />} />
             <Route path="/admin/products" element={<AdminProductsPage />} />
+            <Route path="/admin/add-product" element={<AddProduct />} />
           </Routes>
         </Router>
       </main>
