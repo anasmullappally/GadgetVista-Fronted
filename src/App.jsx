@@ -1,57 +1,71 @@
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import React, { lazy, Suspense } from "react";
+import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom";
 import "./App.css";
-import Header from "./components/common/Header";
-import SingleProduct from "./pages/SingleProduct";
-import HomePage from "./pages/HomePage";
-import ProductsPage from "./pages/ProductsPage";
-import CheckoutPage from "./pages/CheckoutPage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
-import CartPage from "./pages/CartPage";
-import WishListPage from "./pages/WishListPage";
-import UserProfilePage from "./pages/UserProfilePage";
-import AdminHomePage from "./pages/AdminHomePage";
-import SideBar from "./components/common/SideBar";
-import AdminHeader from "./components/common/AdminHeader";
-import { useState } from "react";
-import AdminProductsPage from "./pages/AdminProductsPage";
-import AddProduct from "./pages/AddProduct";
-import Login from "./components/auth/Login";
 import { useSelector } from 'react-redux'
+import Header from "./components/common/Header";
+
+const SingleProduct = lazy(() => import("./pages/SingleProduct"));
+const HomePage = lazy(() => import("./pages/HomePage"));
+const ProductsPage = lazy(() => import("./pages/ProductsPage"));
+const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const CartPage = lazy(() => import("./pages/CartPage"));
+const WishListPage = lazy(() => import("./pages/WishListPage"));
+const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
+const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
+const SideBar = lazy(() => import("./components/common/SideBar"));
+const AdminProductsPage = lazy(() => import("./pages/AdminProductsPage"));
+const AddProduct = lazy(() => import("./pages/AddProduct"));
+const Login = lazy(() => import("./components/auth/Login"));
 
 function App() {
   const user = useSelector(state => state.auth.user);
-  const isAdmin = user?.role === "admin"
-  const [openSideBar, setOpenSideBar] = useState(false)
+  const isAdmin = user?.role === "admin";
+  const isAuthenticated = !!user;
+
+  const [openSideBar, setOpenSideBar] = React.useState(false);
+
   return (
     <>
-
-      <header className={`${isAdmin ? 'admin-header mt-2' : 'user-header'}`}>
-        {user && isAdmin ?
-          <AdminHeader setOpenSideBar={setOpenSideBar} />
-          :
-          < Header user={user} />
-        }
-      </header >
+      <Header user={user} isAdmin={isAdmin} setOpenSideBar={setOpenSideBar} />
       <main className="mt-3 flex">
-        {isAdmin && <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />}
-        <Router>
-          <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="/shop" element={<ProductsPage />} />
-            <Route path="/shop/:id" element={<SingleProduct />} />
-            <Route path="/checkout" element={<CheckoutPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="/wishlist" element={<WishListPage />} />
-            <Route path="/profile" element={<UserProfilePage />} />
-            <Route path="/admin/dashboard" element={<AdminHomePage />} />
-            <Route path="/admin/products" element={<AdminProductsPage />} />
-            <Route path="/admin/add-product" element={<AddProduct />} />
-          </Routes>
-        </Router>
+        {isAdmin && (
+          <Suspense fallback={<div>Loading...</div>}>
+            <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />
+          </Suspense>
+        )}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Router>
+            <Routes>
+              {!isAuthenticated && <Route path="/login" element={<Login />} />}
+              {!isAdmin ?
+                <>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/shop" element={<ProductsPage />} />
+                  <Route path="/shop/:id" element={<SingleProduct />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/cart" element={<CartPage />} />
+                  <Route path="/wishlist" element={<WishListPage />} />
+                  <Route path="/profile" element={<UserProfilePage />} />
+
+                </> :
+                <>
+                  <Route path="/" element={<AdminHomePage />} />
+                  <Route path="/products" element={<AdminProductsPage />} />
+                  <Route path="/add-product" element={<AddProduct />} />
+                </>
+              }
+
+
+
+              {isAuthenticated && <Route path="/login" element={<Navigate to="/" />} />}
+              {/* {!isAdmin && <Route path="/admin/*" element={<Navigate to="/" replace />} />} */}
+            </Routes>
+          </Router>
+        </Suspense>
       </main>
     </>
   );
