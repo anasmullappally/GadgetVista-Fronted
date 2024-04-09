@@ -2,7 +2,7 @@ import TopProduct from "../components/Home/TopProduct";
 
 const ProductsPage = () => {
     return (
-        <div className="products-container">
+        <div className="products-container-all">
             <div className="product-filter-header">
                 <div className="sort-by">sort by</div>
                 {/* put active */}

@@ -1,4 +1,4 @@
-.products-container {
+.products-container-all {
   height: 100%;
   overflow: hidden;
 
@@ -126,8 +126,8 @@
 
     .products-container {
       width: calc(100% - 15rem);
-      height: 100%;
-      width: 100%;
+      height: 90%;
+      // width: 100%;
       overflow: auto;
       display: flex;
       flex-direction: row;

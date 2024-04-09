@@ -1,64 +1,92 @@
+import { useState } from "react";
 import logo from "../../assets/GadgetVista.png";
 
 function Login() {
+  const [login, setLogin] = useState(false)
   return (
     <>
       <main className="w-full h-screen flex flex-col items-center justify-center px-4">
         <div className="max-w-sm  text-gray-600">
           <div className="text-center">
-            <img src={logo} width={150} className="mx-auto" alt="logo" />
+            <img src={logo} width={100} className="mx-auto" alt="logo" />
             <div className="mt-5 space-y-2">
-              <h3 className="text-gray-800 text-2xl font-bold sm:text-3xl">
-                Sign up
+              <h3 className="text-white text-2xl font-bold sm:text-3xl">
+                {login ? "Sign In " : "Sign up"}
               </h3>
             </div>
           </div>
-          <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-5">
-            <div>
-              <label className="font-medium">Name</label>
-              <input
-                type="text"
-                required
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-            </div>
-            <div>
-              <label className="font-medium">Email</label>
-              <input
-                type="email"
-                required
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-            </div>
-            <div>
-              <label className="font-medium">Password</label>
-              <input
-                type="password"
-                required
-                className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
-              />
-            </div>
-            <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
-              Create account
-            </button>
-          </form>
-          <p>
-            Already have an account?
+          {login ?
+            <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-5">
+              <div>
+                <label className="font-medium">Email</label>
+                <input
+                  type="email"
+                  required
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="font-medium">Password</label>
+                <input
+                  type="password"
+                  required
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+                Login
+              </button>
+            </form>
+            :
+            <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-5">
+              <div>
+                <label className="font-medium">Name</label>
+                <input
+                  type="text"
+                  required
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="font-medium">Email</label>
+                <input
+                  type="email"
+                  required
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="font-medium">Password</label>
+                <input
+                  type="password"
+                  required
+                  className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg"
+                />
+              </div>
+              <button className="w-full px-4 py-2 text-white font-medium bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-600 rounded-lg duration-150">
+                Create account
+              </button>
+            </form>
+          }
+
+          <p className="mt-3">
+            {login ? "New to here  " : " Already have an account?  "}
             <a
               href="javascript:void(0)"
               className="font-medium text-indigo-600 hover:text-indigo-500"
+              onClick={() => setLogin(!login)}
             >
-              Log in
+              {login ? "  Sign Up" : "  Log in"}
             </a>
           </p>
-          {/* <button className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
+          <button className="w-full flex items-center justify-center gap-x-3 py-2.5 mt-5 border rounded-lg text-sm font-medium hover:bg-gray-50 duration-150 active:bg-gray-100">
             <svg
               className="w-5 h-5"
               viewBox="0 0 48 48"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clip-path="url(#clip0_17_40)">
+              <g clipPath="url(#clip0_17_40)">
                 <path
                   d="M47.532 24.5528C47.532 22.9214 47.3997 21.2811 47.1175 19.6761H24.48V28.9181H37.4434C36.9055 31.8988 35.177 34.5356 32.6461 36.2111V42.2078H40.3801C44.9217 38.0278 47.532 31.8547 47.532 24.5528Z"
                   fill="#4285F4"
@@ -83,7 +111,7 @@ function Login() {
               </defs>
             </svg>
             Continue with Google
-          </button> */}
+          </button>
         </div>
       </main>
       ;

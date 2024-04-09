@@ -16,14 +16,14 @@ import AdminHeader from "./components/common/AdminHeader";
 import { useState } from "react";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AddProduct from "./pages/AddProduct";
-// import Login from "./components/auth/login";
+import Login from "./components/auth/Login";
 
 function App() {
-  const user = false
+  const user = true
   const [openSideBar, setOpenSideBar] = useState(false)
   return (
     <>
-      {/* <Login />; */}
+
       <header className={`${user ? 'user-header' : 'admin-header mt-2'}`}>
         {user ? < Header /> : <AdminHeader setOpenSideBar={setOpenSideBar} />}
       </header>
@@ -31,6 +31,7 @@ function App() {
         {!user && <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />}
         <Router>
           <Routes>
+            <Route path="/login" element={<Login />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/shop" element={<ProductsPage />} />
             <Route path="/shop/:id" element={<SingleProduct />} />
