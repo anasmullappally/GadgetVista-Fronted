@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import logo from "../../assets/GadgetVista.png";
 import ProfileAvatar from "./ProfileAvatar";
 
-function Header() {
+function Header({ user }) {
+  console.log(user);
   const [state, setState] = useState(false);
   const [count, setCount] = useState(0);
   const [dropdownState, setDropdownState] = useState({
     isActive: false,
     index: null,
   });
-  const isLoggedIn = false;
 
   const navigation = [
     { title: "Home", path: "/", isDropdown: false },
@@ -207,15 +208,15 @@ function Header() {
                   )}
                   <svg className="h-6 w-6 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <circle cx="9" cy="21" r="1" />  <circle cx="20" cy="21" r="1" />  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" /></svg>
                 </li>
-                {isLoggedIn ? (
+                {user ? (
                   <ProfileAvatar />
                 ) : (
                   <li onClick={() => setCount((pre) => pre + 1)}>
                     <a
-                      href="#"
+                      href="/login"
                       className="block py-3 px-4 font-medium text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 active:shadow-none rounded-lg shadow md:inline"
                     >
-                      Log in / Sign up
+                      login
                     </a>
                   </li>
                 )}

@@ -17,18 +17,24 @@ import { useState } from "react";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AddProduct from "./pages/AddProduct";
 import Login from "./components/auth/Login";
+import { useSelector } from 'react-redux'
 
 function App() {
-  const user = true
+  const user = useSelector(state => state.auth.user);
+  const isAdmin = user?.role === "admin"
   const [openSideBar, setOpenSideBar] = useState(false)
   return (
     <>
 
-      <header className={`${user ? 'user-header' : 'admin-header mt-2'}`}>
-        {user ? < Header /> : <AdminHeader setOpenSideBar={setOpenSideBar} />}
-      </header>
+      <header className={`${isAdmin ? 'admin-header mt-2' : 'user-header'}`}>
+        {user && isAdmin ?
+          <AdminHeader setOpenSideBar={setOpenSideBar} />
+          :
+          < Header user={user} />
+        }
+      </header >
       <main className="mt-3 flex">
-        {!user && <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />}
+        {isAdmin && <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />}
         <Router>
           <Routes>
             <Route path="/login" element={<Login />} />

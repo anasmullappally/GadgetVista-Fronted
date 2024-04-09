@@ -1,20 +1,11 @@
 import { useState } from "react";
-import logo from "../../assets/GadgetVista.png";
 
 function Login() {
   const [login, setLogin] = useState(false)
   return (
     <>
-      <main className="w-full h-screen flex flex-col items-center justify-center px-4">
+      <main className="w-full flex flex-col items-center justify-center ">
         <div className="max-w-sm  text-gray-600">
-          <div className="text-center">
-            <img src={logo} width={100} className="mx-auto" alt="logo" />
-            <div className="mt-5 space-y-2">
-              <h3 className="text-white text-2xl font-bold sm:text-3xl">
-                {login ? "Sign In " : "Sign up"}
-              </h3>
-            </div>
-          </div>
           {login ?
             <form onSubmit={(e) => e.preventDefault()} className="mt-8 space-y-5">
               <div>
