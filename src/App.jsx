@@ -50,7 +50,6 @@ function App() {
                   <Route path="/cart" element={<CartPage />} />
                   <Route path="/wishlist" element={<WishListPage />} />
                   <Route path="/profile" element={<UserProfilePage />} />
-
                 </> :
                 <>
                   <Route path="/" element={<AdminHomePage />} />
@@ -58,9 +57,6 @@ function App() {
                   <Route path="/add-product" element={<AddProduct />} />
                 </>
               }
-
-
-
               {isAuthenticated && <Route path="/login" element={<Navigate to="/" />} />}
               {/* {!isAdmin && <Route path="/admin/*" element={<Navigate to="/" replace />} />} */}
             </Routes>

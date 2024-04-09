@@ -1,3 +1,5 @@
+import axiosInstance from "../../api/axiosInstance";
+
 // Action types
 export const FETCH_PRODUCTS_REQUEST = 'FETCH_PRODUCTS_REQUEST';
 export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
@@ -23,7 +25,7 @@ export const fetchProducts = () => {
     return async (dispatch) => {
         dispatch(fetchProductsRequest());
         try {
-            const response = await fetch('https://api.example.com/products');
+            const response = await axiosInstance('/products');
             const products = await response.json();
             dispatch(fetchProductsSuccess(products));
         } catch (error) {
