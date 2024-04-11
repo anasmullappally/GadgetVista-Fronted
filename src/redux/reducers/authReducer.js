@@ -1,14 +1,20 @@
+import { LOGIN_ERROR, LOGIN_REQUEST, LOGIN_SUCCESS } from "../actions/authAction";
+
+
 const initialState = {
-    user: null
+    user: null,
+    loading: false,
+    error: null
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_USER_DETAILS':
-            return {
-                ...state,
-                user: action.payload
-            };
+        case LOGIN_REQUEST:
+            return { ...state, loading: true, error: null };
+        case LOGIN_SUCCESS:
+            return { ...state, loading: false, user: action.payload, error: null };
+        case LOGIN_ERROR:
+            return { ...state, loading: false, error: action.payload };
         default:
             return state;
     }

@@ -3,6 +3,7 @@ import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-d
 import "./App.css";
 import { useSelector } from 'react-redux'
 import Header from "./components/common/Header";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -17,7 +18,7 @@ const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
 const SideBar = lazy(() => import("./components/common/SideBar"));
 const AdminProductsPage = lazy(() => import("./pages/AdminProductsPage"));
 const AddProduct = lazy(() => import("./pages/AddProduct"));
-const Login = lazy(() => import("./components/auth/Login"));
+const Login = lazy(() => import("./components/auth/Index"));
 
 function App() {
   const user = useSelector(state => state.auth.user);
@@ -50,15 +51,18 @@ function App() {
                   <Route path="/cart" element={<CartPage />} />
                   <Route path="/wishlist" element={<WishListPage />} />
                   <Route path="/profile" element={<UserProfilePage />} />
+                  {/* Add the 404 route */}
+                  <Route path="*" element={<NotFoundPage />} />
                 </> :
                 <>
                   <Route path="/" element={<AdminHomePage />} />
                   <Route path="/products" element={<AdminProductsPage />} />
                   <Route path="/add-product" element={<AddProduct />} />
+                  {/* Add the 404 route */}
+                  <Route path="*" element={<NotFoundPage />} />
                 </>
               }
               {isAuthenticated && <Route path="/login" element={<Navigate to="/" />} />}
-              {/* {!isAdmin && <Route path="/admin/*" element={<Navigate to="/" replace />} />} */}
             </Routes>
           </Router>
         </Suspense>
