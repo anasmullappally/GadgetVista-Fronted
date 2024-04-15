@@ -12,7 +12,7 @@ function Login() {
           <p className="mt-3">
             {login ? "New to here  " : " Already have an account?  "}
             <a
-              href="javascript:void(0)"
+              // href="javascript:void(0)"
               className="font-medium text-indigo-600 hover:text-indigo-500"
               onClick={() => setLogin(!login)}
             >

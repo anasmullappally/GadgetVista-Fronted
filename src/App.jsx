@@ -4,6 +4,7 @@ import "./App.css";
 import { useSelector } from 'react-redux'
 import Header from "./components/common/Header";
 import NotFoundPage from "./pages/NotFoundPage";
+import { jwtDecode } from "jwt-decode";
 
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -22,7 +23,16 @@ const Login = lazy(() => import("./components/auth/Index"));
 
 function App() {
   const user = useSelector(state => state.auth.user);
-  const isAdmin = user?.role === "admin";
+  const userRoleCheck = () => {
+    const token = localStorage.getItem("token")
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      return decodedToken.role
+    } else {
+      return null
+    }
+  }
+  const isAdmin = userRoleCheck() === "admin";
   const isAuthenticated = !!user;
 
   const [openSideBar, setOpenSideBar] = React.useState(false);
