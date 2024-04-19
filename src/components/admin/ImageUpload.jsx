@@ -15,7 +15,7 @@ function ImageUpload({ data, updateImages }) {
                 updateImages((prevImages) => {
                     return prevImages.map((item) => {
                         if (item.key === data.key) {
-                            return { ...item, data: reader.result };
+                            return { ...item, image: reader.result };
                         }
                         return item;
                     });

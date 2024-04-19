@@ -11,8 +11,7 @@ function AdminProductsPage() {
         const container = productListingRef.current;
         if (container) {
             const isOverflowing = container.scrollHeight > container.clientHeight;
-            console.log('Overflowing:', isOverflowing);
-            setOverflowing(true)
+            setOverflowing(isOverflowing)
         }
     }, [products]);
 

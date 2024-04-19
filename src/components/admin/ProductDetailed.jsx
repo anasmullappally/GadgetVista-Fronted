@@ -22,7 +22,7 @@ const formats = [
 ];
 
 
-function ProductDetailed({ handleChange, data, handleChangeDescription, addVariants, removeVariant, variants, setVariants }) {
+function ProductDetailed({ handleChange, data, handleChangeDescription, addVariants, removeVariant, variants, setVariants, colorError, colorValidation, removeColorError, variantError, removeVariantError, handleSubmit, formDataError }) {
     return (
         <div className="product-details-container">
             <div className="description">
@@ -33,6 +33,7 @@ function ProductDetailed({ handleChange, data, handleChangeDescription, addVaria
                     onChange={handleChangeDescription}
                     modules={modules}
                     formats={formats}
+
                 />
             </div>
             <div className="other-details">
@@ -40,22 +41,50 @@ function ProductDetailed({ handleChange, data, handleChangeDescription, addVaria
                     <div className="mt-6">
                         <label className="block mb-2 text-sm font-medium ">Accessories</label>
                         <input name="accessories" value={data.accessories} onChange={handleChange} type="text" className="bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
-                        {/* <p className="mt-2 text-sm text-green-600 dark:text-green-500"><span className="font-medium">Well done!</span> Some success message.</p> */}
+                        {formDataError?.accessories && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError?.accessories}</p>}
+
                     </div>
                     <div className="mt-6">
                         <label className="block mb-2 text-sm font-medium ">Warranty Information</label>
                         <input name="warrantyInfo" value={data.warrantyInfo} onChange={handleChange} type="text" className="bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
-                        {/* <p className="mt-2 text-sm text-green-600 dark:text-green-500"><span className="font-medium">Well done!</span> Some success message.</p> */}
+                        {formDataError?.warrantyInfo && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError?.warrantyInfo}</p>}
                     </div>
                 </div>
-                <ProductVariants
+
+
+                <div className="variants">
+                    {variants?.map((variant, index) => (
+                        <ProductVariants
+                            variant={variant}
+                            index={index}
+                            key={variant.key}
+                            addVariants={addVariants}
+                            removeVariant={removeVariant}
+                            variants={variants}
+                            setVariants={setVariants}
+                            colorError={colorError}
+                            colorValidation={colorValidation}
+                            removeColorError={removeColorError}
+                            variantError={variantError}
+                            removeVariantError={removeVariantError}
+                        />
+                    ))}
+                    <div className="add-variants mt-4">
+                        <button type="button" className="button" onClick={addVariants}>
+                            <span className="button__text">Add Variant</span>
+                            <span className="button__icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" viewBox="0 0 24 24" strokeWidth="2" strokeLinejoin="round" strokeLinecap="round" stroke="currentColor" height="24" fill="none" className="svg"><line y2="19" y1="5" x2="12" x1="12"></line><line y2="12" y1="12" x2="19" x1="5"></line></svg></span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* <ProductVariants
                     addVariants={addVariants}
                     removeVariant={removeVariant}
                     variants={variants}
                     setVariants={setVariants}
-                />
+                /> */}
                 <div className="product-add-btn add-btn flex justify-center mt-5" >
-                    <button type="button" className="button" >
+                    <button type="button" className="button" onClick={handleSubmit} >
                         <span className="button__text">Add Product</span>
                         <span className="button__icon">
                             <svg
