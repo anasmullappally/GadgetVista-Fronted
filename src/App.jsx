@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom";
 import "./App.css";
 import { useSelector } from 'react-redux'
@@ -35,19 +35,20 @@ function App() {
   const isAdmin = userRoleCheck() === "admin";
   const isAuthenticated = !!user;
 
-  const [openSideBar, setOpenSideBar] = React.useState(false);
+  const [openSideBar, setOpenSideBar] = useState(false);
 
   return (
     <>
-      <Header user={user} isAdmin={isAdmin} setOpenSideBar={setOpenSideBar} />
-      <main className="mt-3 flex">
-        {isAdmin && (
+      <Router>
+        <Header user={user} isAdmin={isAdmin} setOpenSideBar={setOpenSideBar} />
+        <main className="mt-3 flex">
+          {isAdmin && (
+            <Suspense fallback={<div>Loading...</div>}>
+              <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />
+            </Suspense>
+          )}
           <Suspense fallback={<div>Loading...</div>}>
-            <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />
-          </Suspense>
-        )}
-        <Suspense fallback={<div>Loading...</div>}>
-          <Router>
+
             <Routes>
               {!isAuthenticated && <Route path="/login" element={<Login />} />}
               {!isAdmin ?
@@ -74,9 +75,10 @@ function App() {
               }
               {isAuthenticated && <Route path="/login" element={<Navigate to="/" />} />}
             </Routes>
-          </Router>
-        </Suspense>
-      </main>
+
+          </Suspense>
+        </main>
+      </Router>
     </>
   );
 }

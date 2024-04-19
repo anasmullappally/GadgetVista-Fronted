@@ -37,7 +37,7 @@
         border-radius: 5px;
         border: 1px solid grey;
         width: 95%;
-        height: 90%;
+        height: 95%;
         overflow-x: auto;
 
         input {
@@ -94,6 +94,37 @@
           .image-item {
             flex: 1 0 calc(50% - 5px); /* Each div takes up 50% of the container width with gap adjustment */
             max-width: calc(50% - 5px); /* Adjust for the gap */
+          }
+          .image-preview-container {
+            position: relative;
+          }
+
+          .image-preview-container:hover .delete-icon {
+            display: block;
+          }
+
+          .delete-icon {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 4px;
+            cursor: pointer;
+          }
+
+          .delete-icon svg {
+            width: 24px;
+            height: 24px;
+          }
+
+          .image-preview {
+            // border: 2px dashed #cacaca;
+            // background-color: rgba(255, 255, 255, 1);
+            // // padding: 1.5rem;
+            border-radius: 10px;
+            height: 90%;
+            width: 90%;
           }
           .custom-file-upload {
             height: 100%;
@@ -282,7 +313,7 @@
       width: 60%;
       border: 1px solid grey;
       border-radius: 10px;
-      height: 95%;
+      height: 100%;
       padding: 10px;
       overflow: auto;
 

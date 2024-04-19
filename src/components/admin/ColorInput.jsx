@@ -1,16 +1,50 @@
-import { useState } from 'react';
+/* eslint-disable react/prop-types */
 import { CiSquareRemove } from 'react-icons/ci';
 
-function ColorInput() {
-    const [colorInputs, setColorInputs] = useState([{ color: '', colorCode: '' }]);
+function ColorInput({ colorInputs, setColorInputs, setVariants, variantIndex }) {
+
 
     // Function to handle adding a new set of color inputs
     const addColorInput = () => {
         setColorInputs([...colorInputs, { color: '', colorCode: '' }]);
+        setVariants((prevVariants) => {
+            return prevVariants.map((item, ind) => {
+                if (ind === variantIndex) {
+                    item.colors = colorInputs;
+                }
+                return item;
+            });
+        });
     };
     const removeColorInput = (indexToRemove) => {
         setColorInputs(colorInputs.filter((_, index) => index !== indexToRemove));
+        setVariants((prevVariants) => {
+            return prevVariants.map((item, ind) => {
+                if (ind === variantIndex) {
+                    const { colors } = item
+                    console.log(colors);
+                    item.colors = colors.filter((_, index) => index !== indexToRemove)
+                }
+                return item;
+            });
+        });
     };
+    const handleChangeValues = (value, index, fieldName) => {
+        console.log(value, index, fieldName);
+        const updatedInputs = [...colorInputs];
+        updatedInputs[index][fieldName] = value; // Corrected line
+        setColorInputs(updatedInputs);
+
+        setVariants((prevVariants) => {
+            return prevVariants.map((item, ind) => {
+                if (ind === variantIndex) {
+                    item.colors = updatedInputs;
+                }
+                return item;
+            });
+        });
+    }
+
     return (
         <div className="colors m-6">
             {colorInputs.map((colorInput, index) => (
@@ -20,11 +54,7 @@ function ColorInput() {
                         <input
                             type="text"
                             value={colorInput.color}
-                            onChange={(e) => {
-                                const updatedInputs = [...colorInputs];
-                                updatedInputs[index].color = e.target.value;
-                                setColorInputs(updatedInputs);
-                            }}
+                            onChange={(e) => handleChangeValues(e.target.value, index, "color",)}
                             className="bg-white-50 border border-white-500 text-sm rounded-lg block p-2.5 dark:bg-gray-800"
                         />
                     </div>
@@ -33,11 +63,7 @@ function ColorInput() {
                         <input
                             type="text"
                             value={colorInput.colorCode}
-                            onChange={(e) => {
-                                const updatedInputs = [...colorInputs];
-                                updatedInputs[index].colorCode = e.target.value;
-                                setColorInputs(updatedInputs);
-                            }}
+                            onChange={(e) => handleChangeValues(e.target.value, index, "colorCode",)}
                             className="bg-white-50 border border-white-500 text-sm rounded-lg block p-2.5 dark:bg-gray-800"
                         />
                     </div>

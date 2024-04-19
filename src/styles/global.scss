@@ -216,6 +216,19 @@
 .remove-icon:hover {
   transform: scale(1.2); /* Increase size on hover */
 }
+.line {
+  width: 100%; /* Adjust width as needed */
+  height: 1px; /* Adjust height as needed */
+  background-color: gray; /* Change color as needed */
+  margin: 10px 0; /* Adjust margin as needed */
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 @import "home/home.scss";
 @import "products/products.scss";
 @import "products/single_product.scss";
