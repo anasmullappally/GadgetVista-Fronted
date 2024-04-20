@@ -1,10 +1,15 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useContext } from "react";
 import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom";
 import "./App.css";
 import { useSelector } from 'react-redux'
 import Header from "./components/common/Header";
 import NotFoundPage from "./pages/NotFoundPage";
 import { jwtDecode } from "jwt-decode";
+// import Toast from "./components/alerts/Toast";
+import { AppContext } from "./contexts/GlobalContext";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -22,6 +27,7 @@ const AddProduct = lazy(() => import("./pages/AddProduct"));
 const Login = lazy(() => import("./components/auth/Index"));
 
 function App() {
+  const { openSideBar, setOpenSideBar } = useContext(AppContext)
   const user = useSelector(state => state.auth.user);
   const userRoleCheck = () => {
     const token = localStorage.getItem("token")
@@ -35,7 +41,6 @@ function App() {
   const isAdmin = userRoleCheck() === "admin";
   const isAuthenticated = !!user;
 
-  const [openSideBar, setOpenSideBar] = useState(false);
 
   return (
     <>
@@ -77,6 +82,7 @@ function App() {
             </Routes>
 
           </Suspense>
+          <ToastContainer />
         </main>
       </Router>
     </>
