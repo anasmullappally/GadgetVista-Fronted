@@ -4,7 +4,7 @@ import ImageUpload from "./ImageUpload"
 import AddBrandModal from "./AddBrandModal"
 
 function ProductBase({ data, images, updateImages, handleChange, formDataError }) {
-    const [addBrandBtn, setAddBrandBtn] = useState(true)
+    const [addBrandBtn, setAddBrandBtn] = useState(false)
     const brands = ["samsung", "Apple", "lg", "vivo", "oppo"]
 
     return (
