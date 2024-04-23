@@ -1,20 +1,18 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react"
-import ImageUpload from "./ImageUpload"
 import AddBrandModal from "./AddBrandModal"
 
-function ProductBase({ data, images, updateImages, handleChange, formDataError }) {
+function ProductBase({ data, handleChange, formDataError }) {
     const [addBrandBtn, setAddBrandBtn] = useState(false)
     const brands = ["samsung", "Apple", "lg", "vivo", "oppo"]
-
+    //md:w-1/2 
     return (
         <>
-            <div className="image-container">
-                <div className="title">Base Information</div>
-                <div className="base-info">
-                    <div className="mt-6 pl-5 ">
+            <div className="product-container w-full h-full flex justify-center gap-2">
+                <div className="base-info  w-1/2 rounded-md border border-gray-400 overflow-x-auto">
+                    <div className="mt-6 pl-5">
                         <label className="block mb-2 text-sm font-medium ">Product Name</label>
-                        <input name="name" value={data.name} onChange={handleChange} type="text" className="bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
+                        <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
                         {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
                     </div>
                     <div className="brand-container mt-6 pl-5 " >
@@ -65,7 +63,7 @@ function ProductBase({ data, images, updateImages, handleChange, formDataError }
                         </div>
                     </div>
 
-                    <div className="radio-buttons-container pl-5 mt-3">
+                    <div className="radio-buttons-container pl-5 mt-4">
                         <label className="block mb-2 text-sm font-medium">Category</label>
                         <div className="radio-button">
                             <input
@@ -115,13 +113,70 @@ function ProductBase({ data, images, updateImages, handleChange, formDataError }
                         {formDataError?.category && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError?.category}</p>}
                     </div>
 
-                    <div className="images-container pl-5">
-                        {images.map((item) => (
-                            <ImageUpload key={item.key} data={item} updateImages={updateImages} />
-                        ))}
+                    <div className="pl-5">
+                        <label className="block mb-2 text-sm font-medium ">Accessories</label>
+                        <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
+                        {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
                     </div>
 
+                    <div className="mt-6 pl-5 ">
+                        <label className="block mb-2 text-sm font-medium ">Warranty Info</label>
+                        <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
+                        {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
+                    </div>
+                    <div className="flex justify-between ml-5 w-11/12">
+
+                        <div className="mt-6 ">
+                            <label className="block mb-2 text-sm font-medium ">Shipping Charge </label>
+                            <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
+                            {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
+                        </div>
+
+                        <div className="mt-6">
+                            <label className="block mb-2 text-sm font-medium ">Release Date</label>
+                            <div className="relative max-w-sm">
+                                <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                    <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                    </svg>
+                                </div>
+                                <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 appearance-none" placeholder="Select date" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="product-add-btn add-btn flex justify-center mt-5" >
+                        <button type="button" className="button" onClick={null} >
+                            <span className="button__text">Add Product</span>
+                            <span className="button__icon">
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="24"
+                                    viewBox="0 0 24 24"
+                                    strokeWidth="2"
+                                    strokeLinejoin="round"
+                                    strokeLinecap="round"
+                                    stroke="currentColor"
+                                    height="24"
+                                    fill="none"
+                                    className="svg"
+                                >
+                                    <line y2="19" y1="5" x2="12" x1="12"></line>
+                                    <line y2="12" y1="12" x2="19" x1="5"></line>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
                 </div>
+                <div className="base-info w-3/12 rounded-md border border-gray-400 overflow-x-auto pl-5">
+                    <div className="pt-4 text-lg">Instructions</div>
+                    <div className="line border-b border-gray-400 mt-2 mb-2 w-11/12"></div>
+                    <ul className="pl-5 list-disc">
+                        <li>Ins one </li>
+                        <li>Ins one </li>
+                        <li>Ins one </li>
+                    </ul>
+                </div>
+
             </div >
             {addBrandBtn && <div
                 id="crud-modal"

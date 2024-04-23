@@ -9,6 +9,7 @@ import { jwtDecode } from "jwt-decode";
 import { AppContext } from "./contexts/GlobalContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from "./components/loadings/Loading";
 
 
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
@@ -24,6 +25,8 @@ const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
 const SideBar = lazy(() => import("./components/common/SideBar"));
 const AdminProductsPage = lazy(() => import("./pages/AdminProductsPage"));
 const AddProduct = lazy(() => import("./pages/AddProduct"));
+const AddBrand = lazy(() => import("./pages/AddBrand"));
+const AddVariant = lazy(() => import("./pages/AddVariant"));
 const Login = lazy(() => import("./components/auth/Index"));
 
 function App() {
@@ -48,11 +51,11 @@ function App() {
         <Header user={user} isAdmin={isAdmin} setOpenSideBar={setOpenSideBar} />
         <main className="mt-3 flex">
           {isAdmin && (
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loading />}>
               <SideBar setOpenSideBar={setOpenSideBar} openSideBar={openSideBar} />
             </Suspense>
           )}
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loading />}>
 
             <Routes>
               {!isAuthenticated && <Route path="/login" element={<Login />} />}
@@ -73,7 +76,9 @@ function App() {
                 <>
                   <Route path="/" element={<AdminHomePage />} />
                   <Route path="/products" element={<AdminProductsPage />} />
-                  <Route path="/add-product" element={<AddProduct />} />
+                  <Route path="/add-brand" element={<AddProduct />} />
+                  <Route path="/add-product" element={<AddBrand />} />
+                  <Route path="/add-variant" element={<AddVariant />} />
                   {/* Add the 404 route */}
                   <Route path="*" element={<NotFoundPage />} />
                 </>
