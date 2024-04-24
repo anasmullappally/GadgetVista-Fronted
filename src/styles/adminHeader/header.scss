@@ -1,0 +1,47 @@
+.admin-header-a {
+  width: 100%;
+  height: 4rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  .left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 15vw;
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
+  .right {
+    width: calc(100% - 15vw);
+    display: flex;
+    justify-content: flex-end;
+
+    .notification {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .notification-count {
+      background-color: #474f7a;
+      color: white;
+      font-size: 12px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      top: -43px;
+      left: 10px;
+    }
+  }
+}

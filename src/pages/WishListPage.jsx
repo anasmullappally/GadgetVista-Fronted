@@ -4,7 +4,7 @@ function WishListPage() {
     return (
         <>
             <div className="wishlist-wrapper">
-                <div className="ml-5">
+                <div className="ml-5 mt-5">
                     Wishlists ({arr.length || 0})
                 </div>
                 <div className="wishlist-container">

@@ -1,0 +1,212 @@
+.add-product {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+
+  .header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    .title {
+      font-weight: 800;
+      text-transform: uppercase;
+      cursor: default;
+    }
+  }
+  // .adding-container {
+  //   width: 100%;
+  //   height: 100%;
+  //   display: flex;
+  //   padding: 10px;
+  //   overflow: hidden;
+
+  //   .title {
+  //     margin-bottom: 0.5rem;
+  //   }
+
+  .product-add-btn {
+    .button {
+      width: 170px;
+    }
+
+    .button .button__icon {
+      transform: translateX(130px);
+    }
+
+    .button:hover .button__icon {
+      width: 168px;
+      transform: translateX(0);
+    }
+  }
+
+  .product-container {
+    width: 100%;
+    height: 100%;
+
+    .base-info {
+      .product-add-btn {
+        .button {
+          width: 170px;
+        }
+
+        .button .button__icon {
+          transform: translateX(130px);
+        }
+
+        .button:hover .button__icon {
+          width: 168px;
+          transform: translateX(0);
+        }
+      }
+      .input {
+        width: 95%;
+      }
+
+      .radio-buttons-container {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .radio-button {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .radio-button__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+
+      .radio-button__label {
+        display: inline-block;
+        padding-left: 30px;
+        margin-bottom: 10px;
+        position: relative;
+        font-size: 16px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .radio-button__custom {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 2px solid #555;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      }
+
+      .radio-button__input:checked
+        + .radio-button__label
+        .radio-button__custom {
+        transform: translateY(-50%) scale(0.9);
+        border: 5px solid #4c8bf5;
+        color: #4c8bf5;
+      }
+
+      .radio-button__input:checked + .radio-button__label {
+        color: #4c8bf5;
+      }
+
+      .radio-button__label:hover .radio-button__custom {
+        transform: translateY(-50%) scale(1.2);
+        border-color: #4c8bf5;
+        box-shadow: 0 0 10px #4c8bf580;
+      }
+    }
+
+    .brand-container {
+      // display: flex;
+      // justify-content: center;
+      // align-items: center;
+      width: calc(100% - 2rem);
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .add-brand {
+          .button {
+            --main-focus: #2d8cf0;
+            --font-color: #323232;
+            --bg-color-sub: #dedede;
+            --bg-color: #eee;
+            --main-color: #323232;
+            position: relative;
+            width: 185px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            border: 2px solid var(--main-color);
+            box-shadow: 4px 4px var(--main-color);
+            background-color: var(--bg-color);
+            border-radius: 10px;
+            overflow: hidden;
+          }
+
+          .button,
+          .button__icon,
+          .button__text {
+            transition: all 0.3s;
+          }
+
+          .button .button__text {
+            transform: translateX(22px);
+            color: var(--font-color);
+            font-weight: 600;
+          }
+
+          .button .button__icon {
+            position: absolute;
+            transform: translateX(145px);
+            height: 100%;
+            width: 39px;
+            background-color: var(--bg-color-sub);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .button .svg {
+            width: 20px;
+            fill: var(--main-color);
+          }
+
+          .button:hover {
+            background: var(--bg-color);
+          }
+
+          .button:hover .button__text {
+            color: transparent;
+          }
+
+          .button:hover .button__icon {
+            width: 183px;
+            transform: translateX(0);
+          }
+
+          .button:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px var(--main-color);
+          }
+        }
+      }
+    }
+  }
+
+ 
+  // }
+}

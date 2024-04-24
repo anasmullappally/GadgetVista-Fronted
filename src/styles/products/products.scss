@@ -1,4 +1,4 @@
-.products-container {
+.products-container-all {
   height: 100%;
   overflow: hidden;
 
@@ -10,6 +10,9 @@
     // justify-content: flex-end;
     margin-left: 16rem;
     gap: 1rem;
+    @media (max-width: 640px) {
+      display: none;
+    }
     .sort:hover {
       color: black;
     }
@@ -125,9 +128,9 @@
     }
 
     .products-container {
-      width: calc(100% - 15rem);
-      height: 100%;
-      width: 100%;
+      // width: calc(100% - 15rem);
+      height: 90%;
+      // width: 100%;
       overflow: auto;
       display: flex;
       flex-direction: row;
@@ -135,7 +138,7 @@
       flex-wrap: wrap;
 
       @media screen and (max-width: 600px) {
-        width: 66%;
+        // width: 66%;
       }
 
       @media (min-width: 1200px) {
