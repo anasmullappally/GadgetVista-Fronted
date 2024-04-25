@@ -1,14 +1,12 @@
 import { useState } from "react";
 import ProductBase from "../components/admin/ProductBase"
 import moment from "moment";
+import { addProduct } from "../middleware/product";
+import useActivateToast from "../components/alerts/useActivateToast";
 
 function AddBrand() {
-    const [images, setImages] = useState([
-        { image: null, key: 1 },
-        { image: null, key: 2 },
-        { image: null, key: 3 },
-        { image: null, key: 4 }
-    ]);
+    const { activateSneak } = useActivateToast();
+    const [loading, setLoading] = useState(false)
     const [data, setData] = useState({
         name: "",
         category: "",
@@ -18,9 +16,7 @@ function AddBrand() {
         shippingCharge: "",
         releaseDate: ""
     })
-    const updateImages = (updatedImages) => {
-        setImages(updatedImages);
-    };
+
     const [formDataError, setFormDataError] = useState({})
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -70,7 +66,22 @@ function AddBrand() {
             setFormDataError(newErrors);
             return;
         }
-
+        setLoading(true)
+        await addProduct(data).then((res) => {
+            setData({
+                name: "",
+                category: "",
+                brand: "",
+                accessories: "",
+                warrantyInfo: "",
+                shippingCharge: "",
+                releaseDate: ""
+            })
+            setFormDataError({})
+            activateSneak(res?.data?.message, "success")
+        }).catch((err) => {
+            activateSneak(err?.data?.message, "error")
+        }).finally(() => setLoading(false))
     }
 
 
@@ -83,11 +94,11 @@ function AddBrand() {
                 </div>
             </div>
             <ProductBase
-                data={data} images={images}
-                updateImages={updateImages}
+                data={data}
                 handleChange={handleChange}
                 formDataError={formDataError}
                 handleSubmit={handleSubmit}
+                loading={loading}
             />
         </div>
     )

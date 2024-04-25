@@ -5,8 +5,9 @@ import AddBrandModal from "./AddBrandModal"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchBrands } from "../../redux/actions/productAction";
+import CircleLoading from "../common/CircleLoading";
 
-function ProductBase({ data, handleChange, formDataError, handleSubmit }) {
+function ProductBase({ data, handleChange, formDataError, handleSubmit, loading }) {
     const [addBrandBtn, setAddBrandBtn] = useState(false)
     // const brands = ["samsung", "Apple", "lg", "vivo", "oppo"]
     const dispatch = useDispatch();
@@ -159,25 +160,27 @@ function ProductBase({ data, handleChange, formDataError, handleSubmit }) {
                         </div>
                     </div>
                     <div className="product-add-btn add-btn flex justify-center mt-5" >
-                        <button type="button" className="button" onClick={handleSubmit} >
-                            <span className="button__text">Add Product</span>
-                            <span className="button__icon">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="24"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                    strokeLinejoin="round"
-                                    strokeLinecap="round"
-                                    stroke="currentColor"
-                                    height="24"
-                                    fill="none"
-                                    className="svg"
-                                >
-                                    <line y2="19" y1="5" x2="12" x1="12"></line>
-                                    <line y2="12" y1="12" x2="19" x1="5"></line>
-                                </svg>
-                            </span>
+                        <button type="button" disabled={loading} className={`button ${loading && "flex justify-center"}`} onClick={handleSubmit} >
+                            {loading ? <CircleLoading /> : <>
+                                <span className="button__text">Add Product</span>
+                                <span className="button__icon">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        viewBox="0 0 24 24"
+                                        strokeWidth="2"
+                                        strokeLinejoin="round"
+                                        strokeLinecap="round"
+                                        stroke="currentColor"
+                                        height="24"
+                                        fill="none"
+                                        className="svg"
+                                    >
+                                        <line y2="19" y1="5" x2="12" x1="12"></line>
+                                        <line y2="12" y1="12" x2="19" x1="5"></line>
+                                    </svg>
+                                </span>
+                            </>}
                         </button>
                     </div>
                 </div>
