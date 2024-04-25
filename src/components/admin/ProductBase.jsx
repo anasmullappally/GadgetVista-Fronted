@@ -1,23 +1,35 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 import { useState } from "react"
 import AddBrandModal from "./AddBrandModal"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchBrands } from "../../redux/actions/productAction";
 
-function ProductBase({ data, handleChange, formDataError }) {
+function ProductBase({ data, handleChange, formDataError, handleSubmit }) {
     const [addBrandBtn, setAddBrandBtn] = useState(false)
-    const brands = ["samsung", "Apple", "lg", "vivo", "oppo"]
-    //md:w-1/2 
+    // const brands = ["samsung", "Apple", "lg", "vivo", "oppo"]
+    const dispatch = useDispatch();
+
+    const { brands } = useSelector(state => state.products);
+    useEffect(() => {
+        dispatch(fetchBrands())
+    }, [])
+
+
+
+
     return (
         <>
             <div className="product-container w-full h-full flex justify-center gap-2">
                 <div className="base-info  w-1/2 rounded-md border border-gray-400 overflow-x-auto">
-                    <div className="mt-6 pl-5">
+                    <div className="mt-4 pl-5">
                         <label className="block mb-2 text-sm font-medium ">Product Name</label>
                         <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
-                        {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
+                        {formDataError?.name && <p className="mt-1 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
                     </div>
-                    <div className="brand-container mt-6 pl-5 " >
+                    <div className="brand-container mt-4 pl-5 " >
                         <label className="block mb-1 text-sm font-medium ">Brand</label>
-                        {formDataError?.brand && <p className=" pl-1 text-sm text-red-600 dark:text-red-500">{formDataError?.brand}</p>}
 
                         <div className="brand flex items-center justify-center">
                             <div className="select-brand">
@@ -47,9 +59,9 @@ function ProductBase({ data, handleChange, formDataError }) {
                                         className="appearance-none hover:placeholder-shown:bg-emerald-500 relative bg-transparent ring-0 outline-none border border-neutral-500 text-neutral-900 text-sm font-bold rounded-lg  block w-full p-2.5"
                                         name="brand" value={data.brand} onChange={handleChange}
                                     >
-                                        <option value={""}>Select Brand</option>
-                                        {brands.map((item) => (
-                                            <option className="uppercase" key={item} value={item}>{item}</option>
+                                        <option value={""} defaultValue={""}>Select Brand</option>
+                                        {brands?.map((item) => (
+                                            <option className="uppercase" key={item?._id} value={item?._id}>{item?.name}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -61,6 +73,7 @@ function ProductBase({ data, handleChange, formDataError }) {
                                 </button>
                             </div>
                         </div>
+                        {formDataError?.brand && <p className="mt-1 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError?.brand}</p>}
                     </div>
 
                     <div className="radio-buttons-container pl-5 mt-4">
@@ -110,29 +123,29 @@ function ProductBase({ data, handleChange, formDataError }) {
                             Remix
                         </label>
                     </div> */}
-                        {formDataError?.category && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError?.category}</p>}
+                        {formDataError?.category && <p className="mt-1 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError?.category}</p>}
                     </div>
 
                     <div className="pl-5">
                         <label className="block mb-2 text-sm font-medium ">Accessories</label>
-                        <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
-                        {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
+                        <input name="accessories" value={data.accessories} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
+                        {formDataError?.accessories && <p className="mt-1 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.accessories}</p>}
                     </div>
 
-                    <div className="mt-6 pl-5 ">
+                    <div className="mt-4 pl-5 ">
                         <label className="block mb-2 text-sm font-medium ">Warranty Info</label>
-                        <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
-                        {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
+                        <input name="warrantyInfo" value={data.warrantyInfo} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
+                        {formDataError?.warrantyInfo && <p className="mt-1 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.warrantyInfo}</p>}
                     </div>
                     <div className="flex justify-between ml-5 w-11/12">
 
-                        <div className="mt-6 ">
+                        <div className="mt-4 ">
                             <label className="block mb-2 text-sm font-medium ">Shipping Charge </label>
-                            <input name="name" value={data.name} onChange={handleChange} type="text" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
-                            {formDataError?.name && <p className="mt-2 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.name}</p>}
+                            <input name="shippingCharge" value={data.shippingCharge} onChange={handleChange} type="number" className="input bg-white-50 border border-white-500 text-sm rounded-lg  block p-2.5 dark:bg-gray-800  " />
+                            {formDataError?.shippingCharge && <p className="mt-1 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.shippingCharge}</p>}
                         </div>
 
-                        <div className="mt-6">
+                        <div className="mt-4">
                             <label className="block mb-2 text-sm font-medium ">Release Date</label>
                             <div className="relative max-w-sm">
                                 <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -140,12 +153,13 @@ function ProductBase({ data, handleChange, formDataError }) {
                                         <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                                     </svg>
                                 </div>
-                                <input type="date" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 appearance-none" placeholder="Select date" />
+                                <input type="date" name="releaseDate" value={data.releaseDate} onChange={handleChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 appearance-none" placeholder="Select date" />
                             </div>
+                            {formDataError?.releaseDate && <p className="mt-1 pl-1 text-sm text-red-600 dark:text-red-500">{formDataError.releaseDate}</p>}
                         </div>
                     </div>
                     <div className="product-add-btn add-btn flex justify-center mt-5" >
-                        <button type="button" className="button" onClick={null} >
+                        <button type="button" className="button" onClick={handleSubmit} >
                             <span className="button__text">Add Product</span>
                             <span className="button__icon">
                                 <svg
@@ -169,7 +183,7 @@ function ProductBase({ data, handleChange, formDataError }) {
                 </div>
                 <div className="base-info w-3/12 rounded-md border border-gray-400 overflow-x-auto pl-5">
                     <div className="pt-4 text-lg">Instructions</div>
-                    <div className="line border-b border-gray-400 mt-2 mb-2 w-11/12"></div>
+                    <div className="line border-b border-gray-400 mt-1 mb-2 w-11/12"></div>
                     <ul className="pl-5 list-disc">
                         <li>Ins one </li>
                         <li>Ins one </li>

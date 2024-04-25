@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 
 const useActivateToast = () => {
-    const activateSneak = (message, severity) => {
+    const activateSneak = (message, severity = "error") => {
         toast[severity](message, {
             autoClose: 3000, // Close the notification after 3 seconds
             hideProgressBar: false, // Show progress bar

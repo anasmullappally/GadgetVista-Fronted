@@ -2,11 +2,17 @@
 
 import { useState } from "react"
 import useActivateToast from "../alerts/useActivateToast";
+import { addBrand } from "../../middleware/product";
+import CircleLoading from "../common/CircleLoading";
+import { useDispatch } from "react-redux";
+import { fetchBrands } from "../../redux/actions/productAction";
 
 function AddBrandModal({ setAddBrandBtn, brands }) {
     const { activateSneak } = useActivateToast();
     const [newBrand, setNewBrand] = useState("")
+    const [loading, setLoading] = useState(false)
     const [error, setError] = useState({})
+    const dispatch = useDispatch();
 
     const handleChange = (e) => {
         const { name, value } = e.target
@@ -15,13 +21,32 @@ function AddBrandModal({ setAddBrandBtn, brands }) {
             setError({})
         }
     }
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
+        const newError = {}
         if (!newBrand) {
-            error.brand = "Brand name is required"
+            newError.brand = "Brand name is required"
         }
-        activateSneak("hello", "error");
+        if (Object.keys(newError).length > 0) {
+            setError(newError)
+            return;
+        }
+        setLoading(true)
+
+        const data = { brandName: newBrand }
+
+        await addBrand(data)
+            .then((res) => {
+                activateSneak(res?.data?.message, "success")
+                setNewBrand("")
+                dispatch(fetchBrands())
+            })
+            .catch((err) => activateSneak(err.data.message, "error"))
+            .finally(() => {
+                setLoading(false)
+            })
     }
+
     return (
         <div className="relative p-4 max-w-md max-h-full w-full">
             <div className="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -44,10 +69,10 @@ function AddBrandModal({ setAddBrandBtn, brands }) {
                     <h4 className="text-sm font-semibold text-gray-900 dark:text-white">Availed Brands</h4>
                     <div className="line"></div>
                     <div className="flex flex-wrap">
-                        {brands.map((item, ind) => (
-                            <div className="w-1/2 flex items-center" key={ind}>
+                        {brands?.map((item) => (
+                            <div className="w-1/2 flex items-center" key={item._id}>
                                 <span className="inline-block w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
-                                <p className="uppercase">{item}</p>
+                                <p className="uppercase">{`${item.name} (${item.activeProducts})`}</p>
                             </div>
                         ))}
                     </div>
@@ -65,19 +90,17 @@ function AddBrandModal({ setAddBrandBtn, brands }) {
                                 value={newBrand}
                                 onChange={handleChange}
                             />
-                            {error.brand && <p className="mt-2 text-sm text-red-600 dark:text-red-500">{error.brand}</p>}
+                            {error?.brand && <p className="mt-2 text-sm text-red-600 dark:text-red-500">{error.brand}</p>}
                         </div>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center items-center">
                         <button
                             type="submit"
-                            className="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            className="text-white w-full inline-flex items-center justify-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             onClick={handleSubmit}
+                            disabled={loading}
                         >
-                            <svg className="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fillRule="evenodd" clipRule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"></path>
-                            </svg>
-                            Add new brand
+                            {loading ? <CircleLoading /> : "Add new brand"}
                         </button>
                     </div>
                 </form>
