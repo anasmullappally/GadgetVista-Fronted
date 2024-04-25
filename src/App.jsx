@@ -24,7 +24,7 @@ const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
 const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
 const SideBar = lazy(() => import("./components/common/SideBar"));
 const AdminProductsPage = lazy(() => import("./pages/AdminProductsPage"));
-const AddProduct = lazy(() => import("./pages/AddProduct"));
+// const AddProduct = lazy(() => import("./pages/AddProduct"));
 const AddBrand = lazy(() => import("./pages/AddBrand"));
 const AddVariant = lazy(() => import("./pages/AddVariant"));
 const Login = lazy(() => import("./components/auth/Index"));
@@ -76,7 +76,7 @@ function App() {
                 <>
                   <Route path="/" element={<AdminHomePage />} />
                   <Route path="/products" element={<AdminProductsPage />} />
-                  <Route path="/add-brand" element={<AddProduct />} />
+                  {/* <Route path="/add-brand" element={<AddProduct />} /> */}
                   <Route path="/add-product" element={<AddBrand />} />
                   <Route path="/add-variant" element={<AddVariant />} />
                   {/* Add the 404 route */}

@@ -290,13 +290,13 @@ function AddVariants() {
           </div>
 
           <div className="w-11/12 ml-5 mt-5">
-            <div className="flex text-center w-11/12 justify-center">
+            <div className="flex text-center w-11/12 justify-start">
               <p className="mr-5">Selected Product: </p>
               {data?.selectedProduct && <p>{`${data?.selectedProduct?.name}  (${data?.selectedProduct?.brand})`}</p>}
             </div>
           </div>
           <div className="w-11/12 ml-5 mt-3">
-            <div className="flex text-center w-11/12 justify-center">
+            <div className="flex text-center w-11/12 justify-start">
               <p className="mr-5">Warranty Info: </p>
               <p>{data?.selectedProduct?.warrantyInfo}</p>
             </div>
