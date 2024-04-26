@@ -6,11 +6,12 @@
 
     .description {
       width: 100%;
-      height: fit-content;
+      // height: fit-content;
       .quill {
-        height: 10rem;
-        padding-bottom: 2rem;
-        margin-bottom: 3rem;
+        .ql-container {
+          // padding-bottom: 2rem;
+          height: 10rem;
+        }
       }
     }
 

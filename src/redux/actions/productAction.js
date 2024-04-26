@@ -47,9 +47,8 @@ export const fetchProducts = () => {
     return async (dispatch) => {
         dispatch(fetchProductsRequest());
         try {
-            const response = await axiosInstance('/products');
-            const products = await response.json();
-            dispatch(fetchProductsSuccess(products));
+            const { data } = await axiosInstance.get('/products');
+            dispatch(fetchProductsSuccess(data.products));
         } catch (error) {
             dispatch(fetchProductsError(error.message));
         }

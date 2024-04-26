@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import Header from "./components/common/Header";
 import NotFoundPage from "./pages/NotFoundPage";
 import { jwtDecode } from "jwt-decode";
-// import Toast from "./components/alerts/Toast";
 import { AppContext } from "./contexts/GlobalContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,8 +23,7 @@ const UserProfilePage = lazy(() => import("./pages/UserProfilePage"));
 const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
 const SideBar = lazy(() => import("./components/common/SideBar"));
 const AdminProductsPage = lazy(() => import("./pages/AdminProductsPage"));
-// const AddProduct = lazy(() => import("./pages/AddProduct"));
-const AddBrand = lazy(() => import("./pages/AddBrand"));
+const AddProduct = lazy(() => import("./pages/AddProduct"));
 const AddVariant = lazy(() => import("./pages/AddVariant"));
 const Login = lazy(() => import("./components/auth/Index"));
 
@@ -77,7 +75,7 @@ function App() {
                   <Route path="/" element={<AdminHomePage />} />
                   <Route path="/products" element={<AdminProductsPage />} />
                   {/* <Route path="/add-brand" element={<AddProduct />} /> */}
-                  <Route path="/add-product" element={<AddBrand />} />
+                  <Route path="/add-product" element={<AddProduct />} />
                   <Route path="/add-variant" element={<AddVariant />} />
                   {/* Add the 404 route */}
                   <Route path="*" element={<NotFoundPage />} />

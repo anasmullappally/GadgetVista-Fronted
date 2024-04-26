@@ -36,7 +36,8 @@ export const login = (credentials) => {
             delete user.role
             dispatch(loginSuccess(user));
         } catch (error) {
-            dispatch(loginError(error.response.data.message));
+            dispatch(loginError(error?.response?.data?.message));
         }
     };
 };
+
