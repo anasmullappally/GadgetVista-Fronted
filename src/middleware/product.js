@@ -21,8 +21,11 @@ export const addProduct = async (data) => {
 }
 
 export const addVariants = async (data) => {
-    console.log(data);
-    return await axiosInstance.post("/products/variants", data)
+    return await axiosInstance.post("/products/variants", data, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
         .then((res) => {
             return Promise.resolve(res);
         })

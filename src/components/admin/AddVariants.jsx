@@ -7,16 +7,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../redux/actions/productAction";
 import { addVariants } from "../../middleware/product";
+import useActivateToast from "../alerts/useActivateToast";
 
 
 function AddVariants() {
   const { products } = useSelector(state => state.products);
   const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(fetchProducts())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  console.log(products);
+  const { activateSneak } = useActivateToast();
   const modules = {
     toolbar: [
       [{ 'header': '1' }, { 'header': '2' }, { 'font': [] }],
@@ -47,148 +44,12 @@ function AddVariants() {
     selectedProduct: null
   })
   const [images, setImages] = useState([
-    { image: null, key: 1 },
-    { image: null, key: 2 },
-    { image: null, key: 3 },
-    { image: null, key: 4 }
+    { preview: '', data: '', key: 1 },
+    { preview: '', data: '', key: 2 },
+    { preview: '', data: '', key: 3 },
+    { preview: '', data: '', key: 4 }
   ]);
-  console.log(data);
   const [formDataError, setFormDataError] = useState({})
-  // const products = [
-  //   {
-  //     "name": "iPhone 12",
-  //     "brand": "Apple",
-  //     "accessories": "EarPods with Lightning Connector, USB-C to Lightning Cable, Documentation",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Galaxy S21",
-  //     "brand": "Samsung",
-  //     "accessories": "USB Type-C Cable, Ejection Pin, Quick Start Guide",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Pixel 5",
-  //     "brand": "Google",
-  //     "accessories": "18W USB-C Power Adapter, USB-C to USB-C Cable, Quick Start Guide",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "OnePlus 9",
-  //     "brand": "OnePlus",
-  //     "accessories": "Warp Charge 65 Power Adapter, Warp Charge Type-C to Type-C Cable, Quick Start Guide, Welcome Letter, Safety Information and Warranty Card, LOGO Sticker, Screen Protector, SIM Tray Ejector",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Mi 11",
-  //     "brand": "Xiaomi",
-  //     "accessories": "USB Type-C Cable, Power Adapter, SIM Eject Tool, Soft Case, User Guide, Warranty Card",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Mate 40 Pro",
-  //     "brand": "Huawei",
-  //     "accessories": "USB Type-C Cable, Power Adapter, Earphones, Protective Case, Quick Start Guide, Eject Tool, Warranty Card",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Xperia 1 III",
-  //     "brand": "Sony",
-  //     "accessories": "USB Type-C Cable, Power Adapter, User Guide, Warranty Card",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "ZenFone 8",
-  //     "brand": "Asus",
-  //     "accessories": "USB Type-C to Type-C Cable, Ejector Pin (SIM tray needle), USB Power Adapter (30W), Documentation (user guide, warranty card)",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Redmi Note 10 Pro",
-  //     "brand": "Xiaomi",
-  //     "accessories": "USB Type-C Cable, Power Adapter, SIM Eject Tool, Soft Case, User Guide, Warranty Card",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Galaxy A52",
-  //     "brand": "Samsung",
-  //     "accessories": "USB Type-C Cable, Ejection Pin, Quick Start Guide",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "iPhone SE",
-  //     "brand": "Apple",
-  //     "accessories": "EarPods with Lightning Connector, USB-C to Lightning Cable, Documentation",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Mi 11 Ultra",
-  //     "brand": "Xiaomi",
-  //     "accessories": "USB Type-C Cable, Power Adapter, SIM Eject Tool, Soft Case, User Guide, Warranty Card",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Pixel 4a",
-  //     "brand": "Google",
-  //     "accessories": "18W USB-C Power Adapter, USB-C to USB-C Cable, Quick Start Guide",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "OnePlus 8T",
-  //     "brand": "OnePlus",
-  //     "accessories": "Warp Charge 65 Power Adapter, Warp Charge Type-C to Type-C Cable, Quick Start Guide, Welcome Letter, Safety Information and Warranty Card, LOGO Sticker, Screen Protector, SIM Tray Ejector",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Galaxy Note 20",
-  //     "brand": "Samsung",
-  //     "accessories": "USB Type-C Cable, Ejection Pin, Quick Start Guide",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Mi 10T Pro",
-  //     "brand": "Xiaomi",
-  //     "accessories": "USB Type-C Cable, Power Adapter, SIM Eject Tool, Soft Case, User Guide, Warranty Card",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "iPhone 11",
-  //     "brand": "Apple",
-  //     "accessories": "EarPods with Lightning Connector, USB-C to Lightning Cable, Documentation",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "ZenFone 7 Pro",
-  //     "brand": "Asus",
-  //     "accessories": "USB Type-C to Type-C Cable, Ejector Pin (SIM tray needle), USB Power Adapter (30W), Documentation (user guide, warranty card)",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   },
-  //   {
-  //     "name": "Galaxy S20 FE",
-  //     "brand": "Samsung",
-  //     "accessories": "USB Type-C Cable, Ejection Pin, Quick Start Guide",
-  //     "warrantyInfo": "1 year limited warranty",
-  //     "shippingCharge": 0
-  //   }
-  // ]
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -215,21 +76,38 @@ function AddVariants() {
     }));
   };
 
-  const updateImages = (updatedImages) => {
-    setImages(updatedImages);
+  const updateImages = (key, file) => {
+    setImages((prevImages) => {
+      return prevImages.map((item) => {
+        if (item.key === key) {
+          return { ...item, data: file, preview: URL.createObjectURL(file), };
+        }
+        return item;
+      });
+    });
   };
+
 
   const handleSelect = (e) => {
     const selectedIndex = e.target.selectedIndex;
     const selectedProduct = products[selectedIndex - 1]; // Subtract 1 to account for the placeholder option
     setData({ ...data, selectedProduct });
+    if (formDataError.selectedProduct) {
+      setFormDataError(prevErrors => ({
+        ...prevErrors,
+        selectedProduct: ""
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     const newErrors = {}
-    const { ram, rom, price, mrp, quantity, color, colorCode, description } = data
+    const { ram, rom, price, mrp, quantity, color, colorCode, description, selectedProduct } = data
 
+    if (!selectedProduct) {
+      newErrors.selectedProduct = "Please select a Product"
+    }
     if (!description) {
       newErrors.description = "Description is required"
     }
@@ -281,17 +159,48 @@ function AddVariants() {
       setFormDataError(newErrors)
       return
     }
-    const formData = {
-      ...data,
-      images
-    }
-    // console.log(formData);
+    const formData = new FormData();
+    images.forEach((item) => {
+      formData.append("images", item.data)
+    })
+    Object.entries(data).forEach(([key, value]) => {
+      if (key === "selectedProduct") {
+        formData.append(key, value._id);
+      } else {
+        formData.append(key, value);
+      }
+    });
+
     await addVariants(formData).then((res) => {
-      console.log(res);
+      activateSneak(res.data.message, "success")
+      setData({
+        ram: "",
+        rom: "",
+        mrp: "",
+        price: "",
+        description: "",
+        color: "",
+        colorCode: "",
+        quantity: "",
+        selectedProduct: null
+      })
+      setImages([
+        { preview: '', data: '', key: 1 },
+        { preview: '', data: '', key: 2 },
+        { preview: '', data: '', key: 3 },
+        { preview: '', data: '', key: 4 }
+      ])
+      setFormDataError({})
     }).catch((err) => {
-      console.log(err);
+      activateSneak(err.data.message, "error")
+
     })
   }
+
+  useEffect(() => {
+    dispatch(fetchProducts())
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   return (
     <>
       <div className="add-variant w-full h-full flex flex-col md:flex-row justify-center gap-2 overflow-auto">
@@ -300,17 +209,18 @@ function AddVariants() {
           <div className="w-11/12 ml-5 mt-5">
             <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select A Product</label>
             <select id="countries" name="selectedProduct" onChange={handleSelect} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-              <option disabled defaultValue={""} value="">Choose a product</option>
+              <option defaultValue={""} value="">Choose a product</option>
               {products.map((item, index) => (
-                <option key={index} value={item}>{`${item.name} (${item.brand.name})`}</option>
+                <option key={index} value={item._id}>{`${item.name} (${item.brand.name})`}</option>
               ))}
             </select>
+            {formDataError?.selectedProduct && <p className="text-sm text-red-600 dark:text-red-500">{formDataError?.selectedProduct}</p>}
           </div>
 
           <div className="w-11/12 ml-5 mt-5">
             <div className="flex text-center w-11/12 justify-start">
               <p className="mr-5">Selected Product: </p>
-              {data?.selectedProduct && <p>{`${data?.selectedProduct?.name}  (${data?.selectedProduct?.brand})`}</p>}
+              {data?.selectedProduct && <p>{`${data?.selectedProduct?.name}  (${data?.selectedProduct?.brand.name})`}</p>}
             </div>
           </div>
           <div className="w-11/12 ml-5 mt-3">
