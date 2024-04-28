@@ -9,7 +9,7 @@ import { AppContext } from "./contexts/GlobalContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from "./components/loadings/Loading";
-
+import 'rc-tooltip/assets/bootstrap_white.css';
 
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const HomePage = lazy(() => import("./pages/HomePage"));

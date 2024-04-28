@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
+import { useEffect } from 'react';
 import { useState } from 'react';
 import { CiCircleRemove } from 'react-icons/ci'; // Import the delete icon component
 
-function ImageUpload({ data, updateImages }) {
+function ImageUpload({ data, updateImages, added }) {
     const [selectedImage, setSelectedImage] = useState(data?.preview);
 
     const handleImageChange = (e) => {
@@ -19,7 +20,6 @@ function ImageUpload({ data, updateImages }) {
         // }
     };
 
-
     const handleDeleteImage = () => {
         setSelectedImage(null);
         // Update the images array in the parent component
@@ -32,6 +32,9 @@ function ImageUpload({ data, updateImages }) {
             });
         });
     };
+    useEffect(() => {
+        setSelectedImage(null)
+    }, [added])
 
     return (
         <div className="image-item">

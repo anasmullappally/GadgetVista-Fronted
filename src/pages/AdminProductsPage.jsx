@@ -1,24 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import { products } from "../data/dummy"
 import { BsEye, BsFillPencilFill } from "react-icons/bs";
 import AddProduct from "../components/modal/AddProduct";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts } from "../redux/actions/productAction";
+import ToolTip from "../components/common/ToolTip";
+import moment from "moment";
 
 function AdminProductsPage() {
     const productListingRef = useRef(null);
+    const dispatch = useDispatch()
+    const { products } = useSelector(state => state.products);
     const [overflowing, setOverflowing] = useState(false)
-
     const [addProductModal, setAddProductModal] = useState(false)
+
+
+    useEffect(() => {
+        dispatch(fetchProducts())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
         const container = productListingRef.current;
         if (container) {
             console.log(container.scrollHeight, container.clientHeight, container.scrollHeight > container.clientHeight);
             const isOverflowing = container.scrollHeight > container.clientHeight;
-            console.log(isOverflowing);
-            setOverflowing(!isOverflowing)
+            setOverflowing(isOverflowing)
         }
     }, [products]);
+
     return (
         <>
             <div className="admin-products">
@@ -31,27 +41,33 @@ function AdminProductsPage() {
                         </button>
                     </div>
                 </div>
-                <div className="product-listing" ref={productListingRef}>
+                <div className="product-listing" >
                     <div className={`product-listing-head product-grid ${overflowing ? "product-list-overflow" : ""}`}>
                         <div className="heading">SL No</div>
                         <div className="heading">Name</div>
-                        <div className="heading">Quantity(Available)</div>
-                        <div className="heading">Price</div>
-                        <div className="heading">Marketplace</div>
+                        <div className="heading">Brand</div>
+                        <div className="heading">Variants</div>
+                        <div className="heading">Status</div>
                         <div className="heading">Actions</div>
                     </div>
-                    <div className="product-listing-container mt-2">
-                        {products.map((item) => (
-                            <div className="single-product product-grid" key={item.id}>
-                                <div className="values">{item.id}</div>
-                                <div className="values">{item.name + item.name}</div>
-                                <div className="values">{item.quantity}</div>
-                                <div className="values">{item.price}</div>
-                                <div className="values">{item.marketplace}</div>
+                    <div className="product-listing-container mt-2" ref={productListingRef}>
+                        {products.map((item, index) => (
+                            <div className="single-product product-grid" key={item._id}>
+                                <div className="values">{index + 1}</div>
+                                <div className="values">{item.name}</div>
+                                <div className="values capitalize">{item.brand.name}</div>
+                                <div className="values">{item.variants.length}</div>
+                                <div className="values">
+                                    {item.isVisible ?
+                                        <ToolTip content={"Released"} tooltipMessage={`Released on ${moment(item.releaseDate).format("MMM Do, YYYY")}`} /> :
+                                        <ToolTip content={"Not released"} tooltipMessage={`Scheduled for ${moment(item.releaseDate).format("MMM Do, YYYY")}`} />
+                                    }
+                                </div>
                                 <div className="values flex flex-row"><BsFillPencilFill className="mr-3 pointer" /><BsEye className="pointer" /></div>
                             </div>
                         ))}
                     </div>
+
                 </div>
             </div>
             {addProductModal && <div
