@@ -10,6 +10,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from "./components/loadings/Loading";
 import 'rc-tooltip/assets/bootstrap_white.css';
+import 'react-image-gallery/styles/css/image-gallery.css';
 
 const SingleProduct = lazy(() => import("./pages/SingleProduct"));
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -61,7 +62,7 @@ function App() {
                 <>
                   <Route path="/" element={<HomePage />} />
                   <Route path="/shop" element={<ProductsPage />} />
-                  <Route path="/shop/:id" element={<SingleProduct />} />
+                  <Route path="/shop/:productId/:variantId" element={<SingleProduct />} />
                   <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/about" element={<AboutPage />} />
                   <Route path="/contact" element={<ContactPage />} />

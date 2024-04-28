@@ -1,6 +1,18 @@
+import { useDispatch, useSelector } from "react-redux";
 import TopProduct from "../components/Home/TopProduct";
+import Loading from "../components/loadings/Loading";
+import { fetchVariants } from "../redux/actions/productAction";
+import { useEffect } from "react";
 
 const ProductsPage = () => {
+    // variants
+    const dispatch = useDispatch()
+    const { variants, variantsLoading } = useSelector(state => state.products);
+
+    useEffect(() => {
+        dispatch(fetchVariants())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     return (
         <div className="products-container-all">
             <div className="product-filter-header ">
@@ -79,15 +91,14 @@ const ProductsPage = () => {
 
                 </div>
                 <div className="products-container">
-                    <TopProduct />
-                    <TopProduct />
-                    <TopProduct />
-                    <TopProduct />
-                    <TopProduct />
-                    <TopProduct />
-                    <TopProduct />
-                    <TopProduct />
-                    <TopProduct />
+                    {variantsLoading ?
+                        <Loading /> :
+                        <>
+                            {variants?.map((variant) => (<TopProduct data={variant} key={variant._id} />))}
+                            {variants?.map((variant) => (<TopProduct data={variant} key={variant._id} />))}
+                            {variants?.map((variant) => (<TopProduct data={variant} key={variant._id} />))}
+                        </>
+                    }
                 </div>
             </div>
         </div>

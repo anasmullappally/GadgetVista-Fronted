@@ -6,7 +6,12 @@ export const FETCH_PRODUCTS_ERROR = 'FETCH_PRODUCTS_ERROR';
 export const FETCH_BRANDS_REQUEST = "FETCH_BRANDS_REQUEST";
 export const FETCH_BRANDS_SUCCESS = 'FETCH_BRANDS_SUCCESS';
 export const FETCH_BRANDS_ERROR = 'FETCH_BRANDS_ERROR';
-
+export const FETCH_VARIANTS_REQUEST = "FETCH_VARIANTS_REQUEST";
+export const FETCH_VARIANTS_SUCCESS = 'FETCH_VARIANTS_SUCCESS';
+export const FETCH_VARIANTS_ERROR = 'FETCH_VARIANTS_ERROR';
+export const FETCH_SINGLE_PRODUCT_REQUEST = "FETCH_SINGLE_PRODUCT_REQUEST"
+export const FETCH_SINGLE_PRODUCT_SUCCESS = "FETCH_SINGLE_PRODUCT_SUCCESS"
+export const FETCH_SINGLE_PRODUCT_ERROR = "FETCH_SINGLE_PRODUCT_ERROR"
 // Action creators
 export const fetchProductsRequest = () => ({
     type: FETCH_PRODUCTS_REQUEST
@@ -36,10 +41,33 @@ export const fetchBrandsError = (error) => ({
     payload: error
 });
 
+export const fetchVariantsRequest = () => ({
+    type: FETCH_VARIANTS_REQUEST
+});
 
+export const fetchVariantsSuccess = (variants) => ({
+    type: FETCH_VARIANTS_SUCCESS,
+    payload: variants
+});
 
+export const fetchVariantsError = (error) => ({
+    type: FETCH_VARIANTS_ERROR,
+    payload: error
+});
 
+export const fetchSingleProductRequest = () => ({
+    type: FETCH_SINGLE_PRODUCT_REQUEST
+});
 
+export const fetchSingleProductSuccess = (product) => ({
+    type: FETCH_SINGLE_PRODUCT_SUCCESS,
+    payload: product
+});
+
+export const fetchSIngleProductError = (error) => ({
+    type: FETCH_SINGLE_PRODUCT_ERROR,
+    payload: error
+});
 
 
 // Thunk action creator for fetching products
@@ -59,7 +87,7 @@ export const fetchBrands = () => {
     return async (dispatch) => {
         dispatch(fetchBrandRequest());
         try {
-            const { data } = await axiosInstance('/products/brands');
+            const { data } = await axiosInstance.get('/products/brands');
             dispatch(fetchBrandsSuccess(data.brands));
         } catch (error) {
             dispatch(fetchBrandsError(error.message));
@@ -67,3 +95,27 @@ export const fetchBrands = () => {
     };
 };
 
+export const fetchVariants = () => {
+    return async (dispatch) => {
+        dispatch(fetchVariantsRequest());
+        try {
+            const { data } = await axiosInstance.get('/products/variants');
+            dispatch(fetchVariantsSuccess(data.variants));
+        } catch (error) {
+            dispatch(fetchVariantsError(error.message));
+        }
+    }
+}
+
+export const getSingleProductDetails = (productId) => {
+    return async (dispatch) => {
+        dispatch(fetchSingleProductRequest());
+        try {
+            const { data } = await axiosInstance.get(`/products/${productId}`);
+            dispatch(fetchSingleProductSuccess(data.product));
+        } catch (error) {
+            dispatch(fetchSIngleProductError(error.message));
+
+        }
+    }
+}

@@ -1,11 +1,17 @@
-import { FETCH_BRANDS_ERROR, FETCH_BRANDS_REQUEST, FETCH_BRANDS_SUCCESS, FETCH_PRODUCTS_ERROR, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS } from "../actions/productAction";
+import { FETCH_BRANDS_ERROR, FETCH_BRANDS_REQUEST, FETCH_BRANDS_SUCCESS, FETCH_PRODUCTS_ERROR, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS, FETCH_SINGLE_PRODUCT_ERROR, FETCH_SINGLE_PRODUCT_REQUEST, FETCH_SINGLE_PRODUCT_SUCCESS, FETCH_VARIANTS_ERROR, FETCH_VARIANTS_REQUEST, FETCH_VARIANTS_SUCCESS } from "../actions/productAction";
 
 const initialState = {
     products: [],
-    brands: [],
     loading: false,
+    brands: [],
     brandLoading: false,
     error: null,
+    variants: [],
+    variantsLoading: false,
+    variantsError: null,
+    product: null,
+    productLoading: false,
+    productError: null
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -50,7 +56,46 @@ const productsReducer = (state = initialState, action) => {
                 brandLoading: false,
                 error: action.payload
             };
-
+        case FETCH_VARIANTS_REQUEST:
+            return {
+                ...state,
+                variantsLoading: true,
+                variantsError: null
+            };
+        case FETCH_VARIANTS_SUCCESS:
+            return {
+                ...state,
+                variants: action.payload,
+                variantsLoading: false,
+                variantsError: null
+            };
+        case FETCH_VARIANTS_ERROR:
+            return {
+                ...state,
+                variants: [],
+                variantsLoading: false,
+                variantsError: action.payload
+            };
+        case FETCH_SINGLE_PRODUCT_REQUEST:
+            return {
+                ...state,
+                productLoading: true,
+                productError: null
+            }
+        case FETCH_SINGLE_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                product: action.payload,
+                productLoading: false,
+                productError: null
+            };
+        case FETCH_SINGLE_PRODUCT_ERROR:
+            return {
+                ...state,
+                product: null,
+                productLoading: false,
+                productError: action.payload
+            };
         default:
             return state;
     }
