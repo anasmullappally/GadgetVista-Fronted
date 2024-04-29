@@ -1,46 +1,64 @@
 import ReactImageGallery from "react-image-gallery"
 import { useDispatch, useSelector } from "react-redux";
-import { getSingleProductDetails } from "../redux/actions/productAction";
+import { getSingleProductDetails, resetSelectedVariant, setSelectedVariant } from "../redux/actions/productAction";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Loading from "../components/loadings/Loading";
+import parse from 'html-react-parser';
 
 function SingleProduct() {
     const dispatch = useDispatch()
-    const { product, productLoading } = useSelector(state => state.products);
-    const { productId, variantId } = useParams();
+    const { product, productLoading, selectedVariant } = useSelector(state => state.products);
+    const { productId } = useParams();
     // console.log(variantId);
 
     useEffect(() => {
         dispatch(getSingleProductDetails(productId))
         // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => {
+            dispatch(resetSelectedVariant())
+            // dispatch(resetSelectedProduct())
+        }
     }, [])
 
-    const [selectedProduct, setSelectedProduct] = useState(product.variants.find((variant) => variant._id === variantId))
+    console.log(product);
 
-    // useEffect(() => {
-    //     if (product) {
-    //         const { variants } = product
-    //         setSelectedProduct()
-    //     }
-    // }, [product])
-console.log(selectedProduct);
-    const images = [
-        {
-            original: "https://picsum.photos/id/1018/1000/600/",
-            thumbnail: "https://picsum.photos/id/1018/250/150/",
-        },
-        {
-            original: "https://picsum.photos/id/1015/1000/600/",
-            thumbnail: "https://picsum.photos/id/1015/250/150/",
-        },
-        {
-            original: "https://picsum.photos/id/1019/1000/600/",
-            thumbnail: "https://picsum.photos/id/1019/250/150/",
-        },
-    ];
-    const colors = ["red", "blue", "black", "white"]
-    const reviews = [1, 2, 4, 65, 8, 7, 9, 3, 25, 56]
+    const [selectedProduct, setSelectedProduct] = useState(product?.variants?.find((variant) => variant?._id === selectedVariant))
+
+    const images = selectedProduct ? selectedProduct?.images?.map((img) => {
+        return {
+            original: img.url,
+            thumbnail: img.url,
+        }
+    }) : []
+
+    const groupedVariants = product ? product?.variants?.reduce((accumulator, currentVariant) => {
+        // Check if RAM value already exists in accumulator
+        // console.log(currentVariant);
+        if (accumulator[currentVariant.ram]) {
+            // If RAM value exists, push current variant to the array
+            accumulator[currentVariant.ram].push(currentVariant);
+        } else {
+            // If RAM value doesn't exist, create a new array with the current variant
+            accumulator[currentVariant.ram] = [currentVariant];
+        }
+        return accumulator;
+    }, {}) : {}
+
+    const handleRamSelect = (selectedRam) => {
+        const filteredVariants = product.variants.filter((variant) => (variant.ram === Number(selectedRam)))
+        dispatch(setSelectedVariant(filteredVariants[0]._id))
+        setSelectedProduct(filteredVariants[0])
+    }
+
+    const handleRomSelect = (selectedVariant) => {
+        setSelectedProduct(product?.variants?.find((variant) => variant?._id === selectedVariant))
+        dispatch(setSelectedVariant(selectedVariant))
+    }
+
+    if (!selectedProduct) {
+        return null
+    }
     return (
         <>
             {productLoading ? <Loading /> :
@@ -54,19 +72,19 @@ console.log(selectedProduct);
                     </div>
                     <div className="product-details-container">
                         <div className="brand-name-and-wishlist">
-                            <div className="brand">Brand Name</div>
+                            <div className="brand uppercase">{product?.brand?.name}</div>
                             <div className="wishlist">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
                                 </svg>
                             </div>
                         </div>
-                        <div className="product-name">Product Name</div>
+                        <div className="product-name ">{`${product?.name} (${selectedProduct?.color}, ${selectedProduct?.rom} GB) (${selectedProduct?.ram} GB)`}</div>
                         <div className="special-price">Special Price</div>
                         <div className="price">
-                            <div className="current-price">&#x20B9;1000</div>
+                            <div className="current-price">&#x20B9; {selectedProduct?.price} </div>
                             <div className="previous-price">
-                                &#x20B9;1500
+                                &#x20B9; {selectedProduct?.mrp}
                             </div>
                             <div className="off-percentage">
                                 15% off
@@ -83,44 +101,27 @@ console.log(selectedProduct);
                                 539 ratings and 62 reviews
                             </div>
                         </div>
-                        <div className="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio odit corporis veniam quasi dolorum ab tempora inventore voluptatem animi modi illo nihil maxime officia aut quo sapiente, enim similique. Officiis!</div>
+                        <div className="description">{parse(selectedProduct?.description)}</div>
                         <div className="colors">
-                            {colors.map((item, index) => (
+                            {/* {colors.map((item, index) => (
                                 <div className="color pointer" style={{ backgroundColor: item }} key={index} ></div>
-                            ))}
+                            ))} */}
                         </div>
-                        <div className="variants">
-                            <div className="radio-input">
-                                <label>
-                                    <input type="radio" id="value-1" name="value-radio" value="value-1" />
-                                    <span> 2 GB</span>
-                                </label>
-                                <label>
-                                    <input type="radio" id="value-2" name="value-radio" value="value-2" />
-                                    <span> 4 GB</span>
-                                </label>
-                                <label>
-                                    <input type="radio" id="value-3" name="value-radio" value="value-3" />
-                                    <span> 6 GB</span>
-                                </label>
-                                <span className="selection"></span>
+
+                        <div className="variants w-[80%] ">
+                            <div className="ram flex flex-row mb-3">
+                                {Object.keys(groupedVariants)?.map((variant, ind) => (
+                                    <div key={ind} onClick={() => handleRamSelect(variant)} className={`w-[15%] py-2 text-center mr-2 text-black transition duration-300 cursor-pointer rounded-sm ${variant == selectedProduct?.ram ? 'bg-gray-300 text-gray-800' : 'bg-white text-black'}`}>
+                                        {variant} GB
+                                    </div>
+                                ))}
                             </div>
-                        </div>
-                        <div className="variants">
-                            <div className="radio-input">
-                                <label>
-                                    <input type="radio" id="value-1" name="value-radio" value="value-11" />
-                                    <span> 62 GB</span>
-                                </label>
-                                <label>
-                                    <input type="radio" id="value-2" name="value-radio" value="value-22" />
-                                    <span> 128 GB</span>
-                                </label>
-                                <label>
-                                    <input type="radio" disabled id="value-3" name="value-radio" value="value-34" />
-                                    <span> 256 GB</span>
-                                </label>
-                                <span className="selection"></span>
+                            <div className="ram flex flex-row mb-3">
+                                {groupedVariants[selectedProduct?.ram]?.map((variant) => (
+                                    <div key={variant?._id} onClick={() => handleRomSelect(variant?._id)} className={`w-[15%] py-2 text-center mr-2  text-black transition duration-300 cursor-pointer rounded-sm ${variant.rom === selectedProduct?.rom ? 'bg-gray-300 text-gray-800' : 'bg-white text-black'}`}>
+                                        {variant?.rom} GB
+                                    </div>
+                                ))}
                             </div>
                         </div>
                         <div className="seller-details">
@@ -152,7 +153,7 @@ console.log(selectedProduct);
                                 </div>
                             </div>
                             <div className="reviews">
-                                {reviews.map((item, index) =>
+                                {/* {reviews.map((item, index) =>
                                 (<div className="single-review" key={index}>
                                     <div className="name-and-rating" >
                                         <span className="name">Name {item}</span>
@@ -175,7 +176,7 @@ console.log(selectedProduct);
                                         </div>
                                     </div>
                                 </div>)
-                                )}
+                                )} */}
                             </div>
                         </div>
                     </div>

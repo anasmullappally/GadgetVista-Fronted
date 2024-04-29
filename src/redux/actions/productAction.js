@@ -12,6 +12,10 @@ export const FETCH_VARIANTS_ERROR = 'FETCH_VARIANTS_ERROR';
 export const FETCH_SINGLE_PRODUCT_REQUEST = "FETCH_SINGLE_PRODUCT_REQUEST"
 export const FETCH_SINGLE_PRODUCT_SUCCESS = "FETCH_SINGLE_PRODUCT_SUCCESS"
 export const FETCH_SINGLE_PRODUCT_ERROR = "FETCH_SINGLE_PRODUCT_ERROR"
+export const SET_SELECTED_VARIANT = "SET_SELECTED_VARIANT"
+export const RESET_SELECTED_VARIANT = "RESET_SELECTED_VARIANT"
+export const RESET_SELECTED_PRODUCT = "RESET_SELECTED_PRODUCT"
+
 // Action creators
 export const fetchProductsRequest = () => ({
     type: FETCH_PRODUCTS_REQUEST
@@ -69,6 +73,18 @@ export const fetchSIngleProductError = (error) => ({
     payload: error
 });
 
+export const setSelectedVariant = (variant) => ({
+    type: SET_SELECTED_VARIANT,
+    payload: variant
+})
+
+export const resetSelectedVariant = () => ({
+    type: RESET_SELECTED_VARIANT,
+})
+
+export const resetSelectedProduct = () => ({
+    type: RESET_SELECTED_PRODUCT,
+})
 
 // Thunk action creator for fetching products
 export const fetchProducts = () => {

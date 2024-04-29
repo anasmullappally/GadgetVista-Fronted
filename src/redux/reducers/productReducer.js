@@ -1,4 +1,4 @@
-import { FETCH_BRANDS_ERROR, FETCH_BRANDS_REQUEST, FETCH_BRANDS_SUCCESS, FETCH_PRODUCTS_ERROR, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS, FETCH_SINGLE_PRODUCT_ERROR, FETCH_SINGLE_PRODUCT_REQUEST, FETCH_SINGLE_PRODUCT_SUCCESS, FETCH_VARIANTS_ERROR, FETCH_VARIANTS_REQUEST, FETCH_VARIANTS_SUCCESS } from "../actions/productAction";
+import { FETCH_BRANDS_ERROR, FETCH_BRANDS_REQUEST, FETCH_BRANDS_SUCCESS, FETCH_PRODUCTS_ERROR, FETCH_PRODUCTS_REQUEST, FETCH_PRODUCTS_SUCCESS, FETCH_SINGLE_PRODUCT_ERROR, FETCH_SINGLE_PRODUCT_REQUEST, FETCH_SINGLE_PRODUCT_SUCCESS, FETCH_VARIANTS_ERROR, FETCH_VARIANTS_REQUEST, FETCH_VARIANTS_SUCCESS, RESET_SELECTED_PRODUCT, RESET_SELECTED_VARIANT, SET_SELECTED_VARIANT } from "../actions/productAction";
 
 const initialState = {
     products: [],
@@ -11,7 +11,8 @@ const initialState = {
     variantsError: null,
     product: null,
     productLoading: false,
-    productError: null
+    productError: null,
+    selectedVariant: null
 };
 
 const productsReducer = (state = initialState, action) => {
@@ -95,6 +96,24 @@ const productsReducer = (state = initialState, action) => {
                 product: null,
                 productLoading: false,
                 productError: action.payload
+            };
+
+        case RESET_SELECTED_PRODUCT:
+            return {
+                ...state,
+                product: null,
+                productLoading: false,
+                productError: null,
+            };
+        case SET_SELECTED_VARIANT:
+            return {
+                ...state,
+                selectedVariant: action.payload
+            };
+        case RESET_SELECTED_VARIANT:
+            return {
+                ...state,
+                selectedVariant: null
             };
         default:
             return state;
