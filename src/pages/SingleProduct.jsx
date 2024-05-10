@@ -45,6 +45,31 @@ function SingleProduct() {
         return accumulator;
     }, {}) : {}
 
+
+
+    const uniqueColors = new Map();
+    product?.variants?.forEach(variant => {
+        const { _id, color, colorCode } = variant;
+
+        // Check if color is already present in the map
+        if (!uniqueColors.has(color)) {
+            // If not, add it with its color code and variant ID
+            uniqueColors.set(color, { colorCode, variants: [_id] });
+        } else {
+            // If color already exists, add variant ID to the existing entry
+            uniqueColors.get(color).variants.push(_id);
+        }
+    });
+
+    // Convert the map to an array of objects
+    const uniqueColorsArray = Array.from(uniqueColors, ([color, { colorCode, variants }]) => ({
+        color,
+        colorCode,
+        variants
+    }));
+
+    console.log(uniqueColorsArray, "uniqueColorsArray");
+
     const handleRamSelect = (selectedRam) => {
         const filteredVariants = product.variants.filter((variant) => (variant.ram === Number(selectedRam)))
         dispatch(setSelectedVariant(filteredVariants[0]._id))
@@ -59,6 +84,7 @@ function SingleProduct() {
     if (!selectedProduct) {
         return null
     }
+    const reviews = [10, 15, 14, 14, 15, 5]
     return (
         <>
             {productLoading ? <Loading /> :
@@ -92,20 +118,23 @@ function SingleProduct() {
                         </div>
                         <div className="rating">
                             <div className="rating-percentage">
-                                <span>4.8</span>
+                                <span>{product?.ratings?.overallRating}</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 ml-1">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
                                 </svg>
                             </div>
                             <div className="total-ratings">
-                                539 ratings and 62 reviews
+                                {product?.ratings?.numberOfRatings} ratings and {product?.ratings?.numberOfReview} reviews
                             </div>
                         </div>
                         <div className="description">{parse(selectedProduct?.description)}</div>
                         <div className="colors">
-                            {/* {colors.map((item, index) => (
-                                <div className="color pointer" style={{ backgroundColor: item }} key={index} ></div>
-                            ))} */}
+                            {uniqueColorsArray.map((item, index) => (
+                                <div key={index} className="flex flex-col gap-2 items-center justify-center pointer mr-2">
+                                    <div className=" w-7 h-7 p-2 bg-gray-100 rounded-full border border-white  pointer" style={{ backgroundColor: `#${item.colorCode}` }}  ></div>
+                                    <div className="" > {item.color}</div>
+                                </div>
+                            ))}
                         </div>
 
                         <div className="variants w-[80%] ">
@@ -128,13 +157,13 @@ function SingleProduct() {
                             <div>Seller</div>
                             <div className="seller-brief">
                                 <div className="name-ratings">
-                                    <span className="name">Seller Name</span>
-                                    <div className="seller-ratings">
+                                    <span className="name">Authorized Seller</span>
+                                    {/* <div className="seller-ratings">
                                         <span className="seller-rating-count">3.0</span>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 ml-1">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
                                         </svg>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="return">10 Days return Policy</div>
                             </div>
@@ -143,17 +172,17 @@ function SingleProduct() {
                             <div className="current-rating">
                                 <div className="heading">Rating and Reviews</div>
                                 <div className="rating-percentage">
-                                    <span>4.8</span>
+                                    <span>{product?.ratings?.overallRating}</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-4 h-4 ml-1">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
                                     </svg>
                                 </div>
                                 <div className="total-ratings">
-                                    539 ratings and 62 reviews
+                                    {product?.ratings?.numberOfRatings} ratings and {product?.ratings?.numberOfReview} reviews
                                 </div>
                             </div>
                             <div className="reviews">
-                                {/* {reviews.map((item, index) =>
+                                {reviews.map((item, index) =>
                                 (<div className="single-review" key={index}>
                                     <div className="name-and-rating" >
                                         <span className="name">Name {item}</span>
@@ -176,7 +205,7 @@ function SingleProduct() {
                                         </div>
                                     </div>
                                 </div>)
-                                )} */}
+                                )}
                             </div>
                         </div>
                     </div>
