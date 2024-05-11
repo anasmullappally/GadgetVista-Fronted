@@ -8,7 +8,6 @@ const ProductsPage = () => {
     // variants
     const dispatch = useDispatch()
     const { variants, variantsLoading } = useSelector(state => state.products);
-
     useEffect(() => {
         dispatch(fetchVariants())
         // eslint-disable-next-line react-hooks/exhaustive-deps

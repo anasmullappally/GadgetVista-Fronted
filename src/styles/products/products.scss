@@ -393,9 +393,12 @@
             align-items: center;
             gap: 0.5rem;
 
-            svg {
-              height: 12px;
+            input[type="radio"] {
+              display: none;
             }
+            // svg {
+            //   height: 12px;
+            // }
           }
         }
 
