@@ -20,8 +20,7 @@ function SingleProduct() {
             // dispatch(resetSelectedProduct())
         }
     }, [])
-
-    console.log(product);
+        ;
 
     const [selectedProduct, setSelectedProduct] = useState(product?.variants?.find((variant) => variant?._id === selectedVariant))
 
@@ -68,7 +67,6 @@ function SingleProduct() {
         variants
     }));
 
-    console.log(uniqueColorsArray, "uniqueColorsArray");
 
     const handleRamSelect = (selectedRam) => {
         const filteredVariants = product.variants.filter((variant) => (variant.ram === Number(selectedRam)))
@@ -76,7 +74,7 @@ function SingleProduct() {
         setSelectedProduct(filteredVariants[0])
     }
 
-    const handleRomSelect = (selectedVariant) => {
+    const handleRomAndColorSelect = (selectedVariant) => {
         setSelectedProduct(product?.variants?.find((variant) => variant?._id === selectedVariant))
         dispatch(setSelectedVariant(selectedVariant))
     }
@@ -130,8 +128,8 @@ function SingleProduct() {
                         <div className="description">{parse(selectedProduct?.description)}</div>
                         <div className="colors">
                             {uniqueColorsArray.map((item, index) => (
-                                <div key={index} className="flex flex-col gap-2 items-center justify-center pointer mr-2">
-                                    <div className=" w-7 h-7 p-2 bg-gray-100 rounded-full border border-white  pointer" style={{ backgroundColor: `#${item.colorCode}` }}  ></div>
+                                <div key={index} className={`w-20 flex flex-col gap-2 items-center justify-center pointer mr-2 border  p-5 ${item.color === selectedProduct.color ? "border-blue-900" : "border-black"}`} onClick={() => handleRomAndColorSelect(item.variants[0])} >
+                                    <div className="w-7 h-7 bg-gray-100 rounded-full border   pointer border-white " style={{ backgroundColor: `#${item.colorCode}` }}  ></div>
                                     <div className="" > {item.color}</div>
                                 </div>
                             ))}
@@ -147,7 +145,7 @@ function SingleProduct() {
                             </div>
                             <div className="ram flex flex-row mb-3">
                                 {groupedVariants[selectedProduct?.ram]?.map((variant) => (
-                                    <div key={variant?._id} onClick={() => handleRomSelect(variant?._id)} className={`w-[15%] py-2 text-center mr-2  text-black transition duration-300 cursor-pointer rounded-sm ${variant.rom === selectedProduct?.rom ? 'bg-gray-300 text-gray-800' : 'bg-white text-black'}`}>
+                                    <div key={variant?._id} onClick={() => handleRomAndColorSelect(variant?._id)} className={`w-[15%] py-2 text-center mr-2  text-black transition duration-300 cursor-pointer rounded-sm ${variant.rom === selectedProduct?.rom ? 'bg-gray-300 text-gray-800' : 'bg-white text-black'}`}>
                                         {variant?.rom} GB
                                     </div>
                                 ))}
