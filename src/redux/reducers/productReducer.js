@@ -10,6 +10,7 @@ const initialState = {
     variantsLoading: false,
     variantsError: null,
     product: null,
+    reviews: [],
     productLoading: false,
     productError: null,
     selectedVariant: null
@@ -86,7 +87,8 @@ const productsReducer = (state = initialState, action) => {
         case FETCH_SINGLE_PRODUCT_SUCCESS:
             return {
                 ...state,
-                product: action.payload,
+                product: action.payload.product,
+                reviews: action.payload.reviews,
                 productLoading: false,
                 productError: null
             };

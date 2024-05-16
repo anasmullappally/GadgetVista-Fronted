@@ -8,7 +8,7 @@ import parse from 'html-react-parser';
 
 function SingleProduct() {
     const dispatch = useDispatch()
-    const { product, productLoading, selectedVariant } = useSelector(state => state.products);
+    const { product, reviews, productLoading, selectedVariant } = useSelector(state => state.products);
     const { productId } = useParams();
     // console.log(variantId);
 
@@ -82,7 +82,7 @@ function SingleProduct() {
     if (!selectedProduct) {
         return null
     }
-    const reviews = [10, 15, 14, 14, 15, 5]
+    // const reviews = [10, 15, 14, 14, 15, 5]
     return (
         <>
             {productLoading ? <Loading /> :
@@ -180,7 +180,7 @@ function SingleProduct() {
                                 </div>
                             </div>
                             <div className="reviews">
-                                {reviews.map((item, index) =>
+                                {reviews?.map((item, index) =>
                                 (<div className="single-review" key={index}>
                                     <div className="name-and-rating" >
                                         <span className="name">Name {item}</span>

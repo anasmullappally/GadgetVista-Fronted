@@ -16,6 +16,10 @@ export const SET_SELECTED_VARIANT = "SET_SELECTED_VARIANT"
 export const RESET_SELECTED_VARIANT = "RESET_SELECTED_VARIANT"
 export const RESET_SELECTED_PRODUCT = "RESET_SELECTED_PRODUCT"
 
+
+export const FETCH_PRODUCT_REVIEWS_SUCCESS = "FETCH_PRODUCT_REVIEWS_SUCCESS"
+export const FETCH_PRODUCT_REVIEWS_ERROR = "FETCH_PRODUCT_REVIEWS_ERROR"
+
 // Action creators
 export const fetchProductsRequest = () => ({
     type: FETCH_PRODUCTS_REQUEST
@@ -128,7 +132,8 @@ export const getSingleProductDetails = (productId) => {
         dispatch(fetchSingleProductRequest());
         try {
             const { data } = await axiosInstance.get(`/products/${productId}`);
-            dispatch(fetchSingleProductSuccess(data.product));
+            dispatch(fetchSingleProductSuccess({ product: data.product, reviews: data.reviews }));
+            // reviews
         } catch (error) {
             dispatch(fetchSIngleProductError(error.message));
 
