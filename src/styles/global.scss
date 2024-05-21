@@ -29,6 +29,9 @@
       .count {
         display: flex;
         height: 2rem;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
 
         .increment,
         .decrement {

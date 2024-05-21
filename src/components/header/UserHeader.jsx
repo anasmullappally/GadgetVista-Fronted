@@ -10,8 +10,7 @@ function UserHeader({ user }) {
     isActive: false,
     index: null,
   });
-  const cart = useSelector(state => state.cart);
-  console.log(cart);
+  const { cart } = useSelector(state => state.cart);
 
   const navigation = [
     { title: "Home", path: "/", isDropdown: false },
@@ -202,7 +201,7 @@ function UserHeader({ user }) {
                 </form>
 
                 <li>
-                  {cart && (
+                  {cart.length > 0 && (
                     <span className="top-0 right-0 bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
                       {cart?.length}
                     </span>

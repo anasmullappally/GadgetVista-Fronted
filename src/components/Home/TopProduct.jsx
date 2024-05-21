@@ -16,7 +16,7 @@ const TopProduct = ({ data }) => {
     }
 
     const handleAddItem = (product) => {
-        dispatch(addToCart(product, 1));
+       dispatch(addToCart(product, 1));
         // console.log(product, "pro");
         // console.log(data, "data");
         ///alert: TODO:

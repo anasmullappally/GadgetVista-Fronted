@@ -10,15 +10,15 @@ export const addToCart = (variant, quantity) => ({
     payload: { variant, quantity }
 });
 
-export const removeFromCart = (product, variant) => ({
+export const removeFromCart = (cartId) => ({
     type: REMOVE_FROM_CART,
-    payload: { product, variant }
+    payload:  cartId 
 });
 
 
-export const updateItemQuantity = (product, variant, quantity) => ({
+export const updateItemQuantity = (cartId, type) => ({
     type: UPDATE_ITEM_QUANTITY,
-    payload: { product, variant, quantity }
+    payload: { cartId, type }
 });
 
 export const setCart = (cart) => ({

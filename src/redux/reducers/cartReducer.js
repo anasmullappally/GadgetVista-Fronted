@@ -1,10 +1,12 @@
+import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_ITEM_QUANTITY } from "../actions/cartAction";
+
 const initialState = {
     cart: []
 };
 
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_TO_CART': {
+        case ADD_TO_CART: {
             const { variant, quantity } = action.payload;
             const { product } = variant;
             // Ensure cart is an array
@@ -21,10 +23,27 @@ const cartReducer = (state = initialState, action) => {
                 return { ...state, cart: updatedCart };
             } else {
                 // Add new item to cart
-                return { ...state, cart: [...cart, { product, variant, quantity }] };
+                return { ...state, cart: [...cart, { _id: Date.now(), product, variant, quantity }] };
             }
         }
+        case UPDATE_ITEM_QUANTITY: {
 
+            const { cartId, type } = action.payload;
+            const { cart } = state
+            if (!cart) return state
+
+            const updatedCart = cart.map((item) =>
+                item?._id === cartId ? { ...item, quantity: type === "increment" ? item.quantity + 1 : item.quantity - 1 } : item
+            );
+            return { ...state, cart: updatedCart };
+        }
+        case REMOVE_FROM_CART: {
+            const cartId = action.payload
+            const { cart } = state
+            if (!cart) return state
+            const updatedCart = cart.filter((item) => item._id !== cartId)
+            return { ...state, cart: updatedCart };
+        }
         default:
             return state;
     }
