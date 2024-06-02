@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, UPDATE_ITEM_QUANTITY } from "../actions/cartAction";
+import { ADD_TO_CART, REMOVE_FROM_CART, SET_CART, UPDATE_ITEM_QUANTITY } from "../actions/cartAction";
 
 const initialState = {
     cart: []
@@ -6,6 +6,8 @@ const initialState = {
 
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
+        case SET_CART:
+            return { ...state, cart: action.payload };
         case ADD_TO_CART: {
             const { variant, quantity } = action.payload;
             const { product } = variant;
@@ -23,7 +25,7 @@ const cartReducer = (state = initialState, action) => {
                 return { ...state, cart: updatedCart };
             } else {
                 // Add new item to cart
-                return { ...state, cart: [...cart, { _id: Date.now(), product, variant, quantity }] };
+                return { ...state, cart: [...cart, action.payload] };
             }
         }
         case UPDATE_ITEM_QUANTITY: {

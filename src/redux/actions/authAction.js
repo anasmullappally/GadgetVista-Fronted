@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import axiosInstance from "../../api/axiosInstance";
+import { addToCart } from "./cartAction";
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
@@ -23,6 +24,7 @@ export const loginErrorChange = () => ({
     type: LOGIN_ERROR_STATUS_CHANGE,
 })
 
+
 export const login = (credentials) => {
     return async (dispatch) => {
         dispatch(loginRequest());
@@ -35,9 +37,20 @@ export const login = (credentials) => {
             delete user.exp
             delete user.role
             dispatch(loginSuccess(user));
+
+            const localCart = JSON.parse(localStorage.getItem('cart')) || [];
+            for (const item of localCart) {
+                const data = { ...item.variant, product: item.product }
+                dispatch(addToCart(data, item.quantity));
+            }
+            localStorage.removeItem('cart');
         } catch (error) {
             dispatch(loginError(error?.response?.data?.message));
         }
     };
 };
 
+export const getAuthStatus = () => (dispatch, getState) => {
+    const state = getState();
+    return state.auth;
+};

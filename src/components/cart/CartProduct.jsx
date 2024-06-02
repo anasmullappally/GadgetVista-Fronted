@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { removeFromCart, updateItemQuantity } from "../../redux/actions/cartAction";
+import { removeCartItem, updateCartItem } from "../../redux/actions/cartAction";
 
 /* eslint-disable react/prop-types */
 export default function CartProduct({ item }) {
@@ -10,12 +10,12 @@ export default function CartProduct({ item }) {
         if (item.quantity <= 1 && type === "decrement") {
             return alert("you can not remove")
         }
-        dispatch(updateItemQuantity(cartId, type));
+        dispatch(updateCartItem(cartId, type));
         ///alert: TODO:
     };
 
     const handleDelete = (cartId) => {
-        dispatch(removeFromCart(cartId));
+        dispatch(removeCartItem(cartId));
     }
     if (!item) return null
     return (
