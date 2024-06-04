@@ -1,4 +1,4 @@
-import { ADD_TO_CART, REMOVE_FROM_CART, SET_CART, UPDATE_ITEM_QUANTITY } from "../actions/cartAction";
+import { ADD_TO_CART, REMOVE_FROM_CART, SET_CART, UPDATE_CART_ITEM } from "../actions/cartAction";
 
 const initialState = {
     cart: []
@@ -14,7 +14,7 @@ const cartReducer = (state = initialState, action) => {
             // Ensure cart is an array
             const cart = Array.isArray(state.cart) ? state.cart : [];
             const itemIndex = cart.findIndex(
-                item => item.product._id === product._id && item.variant._id === variant._id
+                item => item?.product?._id === product?._id && item?.variant?._id === variant?._id
             );
 
             if (itemIndex > -1) {
@@ -27,13 +27,12 @@ const cartReducer = (state = initialState, action) => {
                 // Add new item to cart
                 return { ...state, cart: [...cart, action.payload] };
             }
-        }
-        case UPDATE_ITEM_QUANTITY: {
-
+        } case UPDATE_CART_ITEM: {
             const { cartId, type } = action.payload;
             const { cart } = state
-            if (!cart) return state
 
+            if (!cart) return state
+            //updating cart
             const updatedCart = cart.map((item) =>
                 item?._id === cartId ? { ...item, quantity: type === "increment" ? item.quantity + 1 : item.quantity - 1 } : item
             );
@@ -43,6 +42,7 @@ const cartReducer = (state = initialState, action) => {
             const cartId = action.payload
             const { cart } = state
             if (!cart) return state
+            //updating the cart
             const updatedCart = cart.filter((item) => item._id !== cartId)
             return { ...state, cart: updatedCart };
         }

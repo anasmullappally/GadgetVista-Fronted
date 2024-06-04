@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import logo from "../../assets/GadgetVista.png";
 import ProfileAvatar from "../common/ProfileAvatar";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function UserHeader({ user }) {
   const [state, setState] = useState(false);
@@ -11,7 +12,7 @@ function UserHeader({ user }) {
     index: null,
   });
   const { cart } = useSelector(state => state.cart);
-
+  const navigate = useNavigate()
   const navigation = [
     { title: "Home", path: "/", isDropdown: false },
     { title: "Shop", path: "/shop", isDropdown: false },
@@ -200,9 +201,9 @@ function UserHeader({ user }) {
                   />
                 </form>
 
-                <li>
+                <li onClick={() => navigate("/cart")} className="pointer">
                   {cart.length > 0 && (
-                    <span className="top-0 right-0 bg-blue-500 text-white rounded-full px-2 py-1 text-xs">
+                    <span className="top-0 right-0 bg-blue-500 text-white rounded-full px-2 py-1 text-xs"  >
                       {cart?.length}
                     </span>
                   )}

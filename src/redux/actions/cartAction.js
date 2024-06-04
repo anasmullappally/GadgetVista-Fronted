@@ -6,7 +6,6 @@ export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const UPDATE_ITEM_QUANTITY = 'UPDATE_ITEM_QUANTITY';
 export const SET_CART = 'SET_CART';
 export const UPDATE_CART_ITEM = 'UPDATE_CART_ITEM';
-export const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM';
 
 // Helper Functions
 const saveCartToLocalStorage = (cart) => {
@@ -20,7 +19,6 @@ const loadCartFromLocalStorage = () => {
 
 // Action Creators
 export const addToCart = (data, quantity) => async (dispatch, getState) => {
-    console.log(data);
     const state = getState();
     const { user } = state.auth
     const variant = JSON.parse(JSON.stringify(data));
@@ -62,25 +60,26 @@ export const addToCart = (data, quantity) => async (dispatch, getState) => {
 };
 
 export const fetchCart = () => async (dispatch, getState) => {
-    // const { isAuthenticated } = getAuthStatus(getState());
+    const state = getState();
+    const { user } = state.auth
 
-    // if (isAuthenticated) {
-    //     try {
-    //         const response = await axios.get('/cart');
-    //         dispatch({
-    //             type: SET_CART,
-    //             payload: response.data
-    //         });
-    //     } catch (error) {
-    //         console.error("Error fetching cart:", error);
-    //     }
-    // } else {
-    //     const cart = loadCartFromLocalStorage();
-    //     dispatch({
-    //         type: SET_CART,
-    //         payload: cart
-    //     });
-    // }
+    if (user) {
+        try {
+            const { data } = await axiosInstance.get('/cart');
+            dispatch({
+                type: SET_CART,
+                payload: data.cart
+            });
+        } catch (error) {
+            console.error("Error fetching cart:", error);
+        }
+    } else {
+        const cart = loadCartFromLocalStorage();
+        dispatch({
+            type: SET_CART,
+            payload: cart
+        });
+    }
 };
 
 export const updateCartItem = (itemId, type) => async (dispatch, getState) => {
@@ -88,15 +87,16 @@ export const updateCartItem = (itemId, type) => async (dispatch, getState) => {
     const { user } = state.auth
 
     if (user) {
-        // try {
-        //     // const response = await axios.put(`/cart/${itemId}`, { quantity });
-        //     dispatch({
-        //         type: UPDATE_CART_ITEM,
-        //         // payload: response.data
-        //     });
-        // } catch (error) {
-        //     console.error("Error updating cart item:", error);
-        // }
+        try {
+            await axiosInstance.put(`/cart/${itemId}`, { type });
+            const data = { cartId: itemId, type }
+            dispatch({
+                type: UPDATE_CART_ITEM,
+                payload: data
+            });
+        } catch (error) {
+            console.error("Error updating cart item:", error);
+        }
     } else {
         const cart = loadCartFromLocalStorage();
         const updatedCart = cart.map((item) =>
@@ -114,17 +114,16 @@ export const updateCartItem = (itemId, type) => async (dispatch, getState) => {
 export const removeCartItem = (itemId) => async (dispatch, getState) => {
     const state = getState();
     const { user } = state.auth
-
     if (user) {
-        // try {
-        //     await axios.delete(`/cart/${itemId}`);
-        //     dispatch({
-        //         type: REMOVE_CART_ITEM,
-        //         payload: itemId
-        //     });
-        // } catch (error) {
-        //     console.error("Error removing cart item:", error);
-        // }
+        try {
+            await axiosInstance.delete(`/cart/${itemId}`);
+            dispatch({
+                type: REMOVE_FROM_CART,
+                payload: itemId
+            });
+        } catch (error) {
+            console.error("Error removing cart item:", error);
+        }
     } else {
         const cart = loadCartFromLocalStorage();
         const updatedCart = cart.filter(item => item._id !== itemId);
