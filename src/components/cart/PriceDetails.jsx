@@ -19,8 +19,8 @@ export default function PriceDetails({ cart }) {
                         </div> */}
                         {cart?.map((item) => (
                             <div className="item-price" key={item?._id}>
-                                <div className="items">{`${item?.product?.name} (${item?.variant?.ram}/${item?.variant?.ram})`}</div>
-                                <div className="price">{item?.variant?.price}</div>
+                                <div className="items">{`${item?.product?.name} (${item?.variant?.ram}/${item?.variant?.ram}) x ${item?.quantity}`}</div>
+                                <div className="price">{item?.variant?.price * item?.quantity}</div>
                             </div>
                         ))}
                         {/* <div className="item-price">
